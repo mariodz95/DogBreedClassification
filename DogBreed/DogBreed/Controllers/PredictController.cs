@@ -26,7 +26,7 @@ namespace DogBreed.Controllers
         public async Task<IActionResult> Classify([FromForm]IFormFile formData)
         {
             // TODO: put file path to appsettings.json
-            var filePath = $"G:\\Ruap web api\\DogBreed\\DogBreed\\{formData.FileName}";
+            var filePath = $"G:\\Ruap project\\DogBreed\\DogBreed\\{formData.FileName}";
 
             if (formData.Length > 0)
             {
@@ -38,7 +38,6 @@ namespace DogBreed.Controllers
           
             ModelInput input = new ModelInput();
             input.ImageSource = formData.FileName;
-            input.Label = formData.Name;
            
             ModelOutput prediction = _predictionEnginePool.Predict(modelName: "ModelInput", example: input);
 
