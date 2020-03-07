@@ -9,6 +9,11 @@ namespace DogBreed
     public class DogBreedViewModel
     {
         public string Name{ get; set; }
-        public IEnumerable Score { get; set; }
+        public float Score { get; set; }
+    }
+
+    public class ResultViewModel
+    {
+        public List<DogBreedViewModel> Results { get; set; }
     }
 }

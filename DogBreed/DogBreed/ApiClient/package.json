@@ -13,6 +13,8 @@
     "react-dom": "^16.13.0",
     "react-images-upload": "^1.2.8",
     "react-scripts": "3.4.0",
+    "react-spinners": "^0.8.0",
+    "react-toastify": "^5.5.0",
     "reactstrap": "^8.4.1"
   },
   "scripts": {

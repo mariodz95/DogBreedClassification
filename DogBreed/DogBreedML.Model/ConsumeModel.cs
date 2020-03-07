@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.ML;
 using DogBreedML.Model;
+using Microsoft.ML.Data;
 
 namespace DogBreedML.Model
 {
@@ -26,7 +27,6 @@ namespace DogBreedML.Model
 
             // Use model to make prediction on input data
             ModelOutput result = predEngine.Predict(input);
-
             return result;
         }
     }
