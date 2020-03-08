@@ -1,12 +1,9 @@
 .App {
   background-color: #282c34;
+  align-items: center;
 }
 
 .ImgUpload {
   background-color: #282c34;
   color: #282c34;
-}
-
-.BtnUpload {
-  justify-content: center;
 }

@@ -61,7 +61,7 @@ namespace DogBreed.Controllers
             foreach (KeyValuePair<string, float> item in scores.Take(5))
             {
                 DogBreedViewModel dog = new DogBreedViewModel();
-                dog.Name = item.Key.Remove(0, 10).Replace("_", " ");
+                dog.Name = FirstLetterToUpper(item.Key.Remove(0, 10).Replace("_", " ").Replace("-"," "));
                 dog.Score = item.Value;
                 dogList.Add(dog);
             }
@@ -77,6 +77,18 @@ namespace DogBreed.Controllers
             //dog.Score = maxValue;
 
             return Ok(dogList);
+        }
+
+
+        public string FirstLetterToUpper(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToUpper(str[0]) + str.Substring(1);
+
+            return str.ToUpper();
         }
 
         private static Dictionary<string, float> GetSlotNames(DataViewSchema schema, string name, float[] scores)
@@ -97,5 +109,6 @@ namespace DogBreed.Controllers
 
             return result.OrderByDescending(c => c.Value).ToDictionary(i => i.Key, i => i.Value);
         }
+
     }
 }
