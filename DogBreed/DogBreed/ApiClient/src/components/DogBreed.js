@@ -41,6 +41,15 @@ class DogBreed extends React.Component {
             singleImage={true}
             fileContainerStyle={{ backgroundColor: "#282c34" }}
           />
+          <div className="sweet-loading">
+            <ClipLoader
+              css={override}
+              size={40}
+              color={"#123abc"}
+              loading={this.state.loading}
+            />
+          </div>
+
           <button
             className="BtnUpload"
             variant="success"
@@ -50,26 +59,20 @@ class DogBreed extends React.Component {
           >
             Classify dog breed
           </button>
-          <div className="sweet-loading">
-            <Spinner animation="border" variant="primary" />
-            <ClipLoader
-              css={override}
-              size={40}
-              color={"#123abc"}
-              loading={this.state.loading}
-            />
-          </div>
-
           {(dogBreedData !== null) & (dogBreedData !== undefined)
             ? dogBreedData.data.map((item, index) => (
-                <table className="resultTable">
-                  <tr>
+                <table className="resultTable" key={index}>
+                  <thead>
                     <th>Dog breed</th>
                     <th>Score</th>
-                  </tr>
+                  </thead>
                   <tr>
                     <td>{item.name}</td>
-                    <td>{item.score.toFixed(4) * 100} %</td>
+                    <td>
+                      {Math.round((item.score * 100 + Number.EPSILON) * 100) /
+                        100}
+                      %
+                    </td>
                   </tr>
                 </table>
               ))
@@ -91,7 +94,7 @@ class DogBreed extends React.Component {
     });
   };
 
-  notify = () => toast("You need to upload image!");
+  notify = () => toast("You need to choose image first!");
 
   uploadHandler = () => {
     if (this.dogBreedData === null || this.dogBreedData === undefined) {
@@ -101,7 +104,7 @@ class DogBreed extends React.Component {
     formData.append("formData", this.state.picture, this.state.picture.name);
     this.isLoading(true);
     axios
-      .post("https://localhost:5001/api/predict/classify", formData)
+      .post("https://localhost:44368/api/predict/classify", formData)
       .then(res => {
         dogBreedData = res;
         console.log("resp", dogBreedData);
