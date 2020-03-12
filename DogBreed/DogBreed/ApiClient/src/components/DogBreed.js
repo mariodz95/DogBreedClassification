@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./../DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
-import Spinner from "react-bootstrap/Spinner";
 
 const override = css`
   display: block;
@@ -15,7 +14,6 @@ const override = css`
 `;
 
 let dogBreedData = null;
-const data = "background-color: #282c34";
 
 class DogBreed extends React.Component {
   constructor(props) {
@@ -25,6 +23,17 @@ class DogBreed extends React.Component {
       loading: false
     };
   }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    console.log("Test");
+    this.scrollToBottom();
+    dogBreedData = null;
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -63,21 +72,31 @@ class DogBreed extends React.Component {
             ? dogBreedData.data.map((item, index) => (
                 <table className="resultTable" key={index}>
                   <thead>
-                    <th>Dog breed</th>
-                    <th>Score</th>
+                    <tr>
+                      <th>Dog breed</th>
+                      <th>Score</th>
+                    </tr>
                   </thead>
-                  <tr>
-                    <td>{item.name}</td>
-                    <td>
-                      {Math.round((item.score * 100 + Number.EPSILON) * 100) /
-                        100}
-                      %
-                    </td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>{item.name}</td>
+                      <td>
+                        {Math.round((item.score * 100 + Number.EPSILON) * 100) /
+                          100}
+                        %
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               ))
             : null}
         </div>
+        <div
+          style={{ float: "left", clear: "both" }}
+          ref={el => {
+            this.messagesEnd = el;
+          }}
+        ></div>
       </React.Fragment>
     );
   }
@@ -94,12 +113,11 @@ class DogBreed extends React.Component {
     });
   };
 
-  notify = () => toast("You need to choose image first!");
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
 
   uploadHandler = () => {
-    if (this.dogBreedData === null || this.dogBreedData === undefined) {
-      this.notify();
-    }
     const formData = new FormData();
     formData.append("formData", this.state.picture, this.state.picture.name);
     this.isLoading(true);

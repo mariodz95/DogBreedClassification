@@ -27,7 +27,6 @@ namespace DogBreed.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Classify([FromForm]IFormFile formData)
         {
-            // TODO: put file path to appsettings.json
             var filePath = $"G:\\Ruap project\\DogBreed\\DogBreed\\{formData.FileName}";
 
             if (formData.Length > 0)
@@ -37,21 +36,14 @@ namespace DogBreed.Controllers
                     await formData.CopyToAsync(stream);
                 }
             }
-          
+
             ModelInput input = new ModelInput();
             input.ImageSource = formData.FileName;
-           
+
             ModelOutput prediction = _predictionEnginePool.Predict(modelName: "ModelInput", example: input);
 
             MLContext mlContext = new MLContext();
 
-            //var test = ConsumeModel.Predict(input);
-
-            
-            //Define DataViewSchema for data preparation pipeline and trained model
-            DataViewSchema modelSchema;
-            // Load trained model
-            // Load model & create prediction engine
             string modelPath = "MLModels/MLModel.zip";
             ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
@@ -67,14 +59,6 @@ namespace DogBreed.Controllers
             }
 
             System.IO.File.Delete(filePath);
-
-            //string dogBreed = prediction.Prediction;
-            //var maxValue = prediction.Score.OrderByDescending(x => x).Take(5);
-            
-            //dogBreed = dogBreed.Remove(0, 10).Replace("_", " ");
-            //DogBreedViewModel dog = new DogBreedViewModel();
-            //dog.Name = dogBreed;
-            //dog.Score = maxValue;
 
             return Ok(dogList);
         }
