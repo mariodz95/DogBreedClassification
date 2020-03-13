@@ -8,7 +8,7 @@ namespace DogBreed
 {
     public class DogBreedViewModel
     {
-        public string Name{ get; set; }
+        public string Name { get; set; }
         public float Score { get; set; }
     }
 

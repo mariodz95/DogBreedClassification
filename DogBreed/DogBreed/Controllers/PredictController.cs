@@ -1,4 +1,6 @@
-﻿using DogBreedML.Model;
+﻿using DogBreed.DAL.Entities;
+using DogBreed.Service;
+using DogBreedML.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ML;
@@ -18,6 +20,7 @@ namespace DogBreed.Controllers
     public class PredictController : ControllerBase
     {
         private readonly PredictionEnginePool<ModelInput, ModelOutput> _predictionEnginePool;
+        byte[] file;
 
         public PredictController(PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool)
         {
@@ -36,6 +39,11 @@ namespace DogBreed.Controllers
                     await formData.CopyToAsync(stream);
                 }
             }
+            byte[] file = ConvertToBytes(formData);
+            //using (Stream file = new FileStream(file, FileMode.Create))
+            //{
+            //    file.Write(file, 0, file.Length);
+            //}
 
             ModelInput input = new ModelInput();
             input.ImageSource = formData.FileName;
@@ -50,19 +58,39 @@ namespace DogBreed.Controllers
             var scores = GetSlotNames(predEngine.OutputSchema, "Score", prediction.Score);
 
             List<DogBreedViewModel> dogList = new List<DogBreedViewModel>();
+            ResponseService service = new ResponseService();
+
+            DogImageEntity image = await service.AddImageAsync(formData.FileName, file);
             foreach (KeyValuePair<string, float> item in scores.Take(5))
             {
                 DogBreedViewModel dog = new DogBreedViewModel();
                 dog.Name = FirstLetterToUpper(item.Key.Remove(0, 10).Replace("_", " ").Replace("-"," "));
                 dog.Score = item.Value;
                 dogList.Add(dog);
+                await service.AddResultAsync(image.Id, dog.Name, dog.Score);
             }
-
+            var test = await service.GetResults(image.Id);
             System.IO.File.Delete(filePath);
 
             return Ok(dogList);
         }
 
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetResults() {
+            ResponseService service = new ResponseService();
+            List<DogImageEntity> listOfResults = await service.GetAllResultsAsync();
+            return Ok(listOfResults);
+        }
+
+
+        private byte[] ConvertToBytes(IFormFile image)
+        {
+            byte[] CoverImageBytes = null;
+            BinaryReader reader = new BinaryReader(image.OpenReadStream());
+            CoverImageBytes = reader.ReadBytes((int)image.Length);
+            return CoverImageBytes;
+        }
 
         public string FirstLetterToUpper(string str)
         {

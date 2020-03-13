@@ -68,8 +68,10 @@ class DogBreed extends React.Component {
           >
             Classify dog breed
           </button>
-          {(dogBreedData !== null) & (dogBreedData !== undefined)
-            ? dogBreedData.data.map((item, index) => (
+          {(dogBreedData !== null) & (dogBreedData !== undefined) ? (
+            <React.Fragment>
+              <h2>Top 5 Scores</h2>
+              {dogBreedData.data.map((item, index) => (
                 <table className="resultTable" key={index}>
                   <thead>
                     <tr>
@@ -88,8 +90,9 @@ class DogBreed extends React.Component {
                     </tr>
                   </tbody>
                 </table>
-              ))
-            : null}
+              ))}
+            </React.Fragment>
+          ) : null}
         </div>
         <div
           style={{ float: "left", clear: "both" }}

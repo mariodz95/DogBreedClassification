@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreedML.Model", "DogBree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreedML.ConsoleApp", "DogBreedML.ConsoleApp\DogBreedML.ConsoleApp.csproj", "{9FED7D92-2BFB-4509-9CB5-11D23299AC8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Service", "DogBreed.Service\DogBreed.Service.csproj", "{71F79B0A-1594-4F66-BB9F-51C902F08077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.DAL", "DogBreed.DAL\DogBreed.DAL.csproj", "{5F324C19-5558-43F6-807E-C111D99656DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{9FED7D92-2BFB-4509-9CB5-11D23299AC8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FED7D92-2BFB-4509-9CB5-11D23299AC8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FED7D92-2BFB-4509-9CB5-11D23299AC8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F79B0A-1594-4F66-BB9F-51C902F08077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F79B0A-1594-4F66-BB9F-51C902F08077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F79B0A-1594-4F66-BB9F-51C902F08077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F79B0A-1594-4F66-BB9F-51C902F08077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F324C19-5558-43F6-807E-C111D99656DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F324C19-5558-43F6-807E-C111D99656DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
