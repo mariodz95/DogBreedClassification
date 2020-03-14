@@ -1,11 +1,11 @@
 import React from "react";
-import axios from "axios";
 import ImageUploader from "react-images-upload";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./../DogBreed.css";
+import "./../css/DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
+import { inject, observer } from "mobx-react";
 
 const override = css`
   display: block;
@@ -13,37 +13,44 @@ const override = css`
   border-color: white;
 `;
 
-let dogBreedData = null;
-
+@inject("rootStore")
+@observer
 class DogBreed extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      picture: null,
-      loading: false
-    };
-  }
-
   componentDidMount() {
     this.scrollToBottom();
   }
 
   componentDidUpdate() {
-    console.log("Test");
     this.scrollToBottom();
-    dogBreedData = null;
   }
-
   render() {
+    const { rootStore } = this.props;
     return (
       <React.Fragment>
+        <div className="sidenav">
+          <img
+            src={require("./../images/login.png")}
+            alt="home"
+            onClick={this.handleClick}
+          />
+          <img
+            src={require("./../images/home.png")}
+            alt="home"
+            onClick={this.handleClick}
+          />
+          <img
+            src={require("./../images/info.png")}
+            alt="home"
+            onClick={this.handleClick}
+          />
+        </div>
         <div className="App">
           <ToastContainer />
           <ImageUploader
             className="ImgUpload"
             withIcon={true}
             buttonText="Choose image"
-            onChange={this.onDrop}
+            onChange={rootStore.dogBreedStore.onDrop}
             imgExtension={[".jpg", ".png"]}
             maxFileSize={5242880}
             withPreview={true}
@@ -55,7 +62,7 @@ class DogBreed extends React.Component {
               css={override}
               size={40}
               color={"#123abc"}
-              loading={this.state.loading}
+              loading={rootStore.dogBreedStore.isLoading}
             />
           </div>
 
@@ -63,15 +70,16 @@ class DogBreed extends React.Component {
             className="BtnUpload"
             variant="success"
             onClick={this.uploadHandler}
-            disabled={!this.state.picture}
+            disabled={!rootStore.dogBreedStore.uploadedImage}
             size="sm"
           >
             Classify dog breed
           </button>
-          {(dogBreedData !== null) & (dogBreedData !== undefined) ? (
+          {(rootStore.dogBreedStore.prediction.data !== null) &
+          (rootStore.dogBreedStore.prediction.data !== undefined) ? (
             <React.Fragment>
               <h2>Top 5 Scores</h2>
-              {dogBreedData.data.map((item, index) => (
+              {rootStore.dogBreedStore.prediction.data.map((item, index) => (
                 <table className="resultTable" key={index}>
                   <thead>
                     <tr>
@@ -104,33 +112,25 @@ class DogBreed extends React.Component {
     );
   }
 
-  onDrop = event => {
-    this.setState({
-      picture: event[0]
-    });
-  };
-
-  isLoading = set => {
-    this.setState({
-      loading: set
-    });
-  };
-
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
+  handleClick = () => {
+    const { rootStore } = this.props;
+    rootStore.routerStore.goTo("results");
+  };
+
   uploadHandler = () => {
+    const { rootStore } = this.props;
     const formData = new FormData();
-    formData.append("formData", this.state.picture, this.state.picture.name);
-    this.isLoading(true);
-    axios
-      .post("https://localhost:44368/api/predict/classify", formData)
-      .then(res => {
-        dogBreedData = res;
-        console.log("resp", dogBreedData);
-        this.isLoading(false);
-      });
+    console.log("t", rootStore.dogBreedStore.uploadedImage);
+    formData.append(
+      "formData",
+      rootStore.dogBreedStore.uploadedImage,
+      rootStore.dogBreedStore.uploadedImage.name
+    );
+    rootStore.dogBreedStore.getPrediction(formData);
   };
 }
 

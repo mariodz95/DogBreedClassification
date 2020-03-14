@@ -1,5 +1,6 @@
 ﻿using DogBreed.DAL.Entities;
 using DogBreed.Service;
+using DogBreed.ViewModel;
 using DogBreedML.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,16 +68,15 @@ namespace DogBreed.Controllers
                 dog.Name = FirstLetterToUpper(item.Key.Remove(0, 10).Replace("_", " ").Replace("-"," "));
                 dog.Score = item.Value;
                 dogList.Add(dog);
-                await service.AddResultAsync(image.Id, dog.Name, dog.Score);
+                //await service.AddResultAsync(image.Id, dog.Name, dog.Score);
             }
-            var test = await service.GetResults(image.Id);
             System.IO.File.Delete(filePath);
 
             return Ok(dogList);
         }
 
 
-        [HttpPost("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetResults() {
             ResponseService service = new ResponseService();
             List<DogImageEntity> listOfResults = await service.GetAllResultsAsync();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DogBreed
+namespace DogBreed.ViewModel
 {
     public class DogBreedViewModel
     {
@@ -14,6 +14,14 @@ namespace DogBreed
 
     public class ResultViewModel
     {
+        public List<DogBreedViewModel> Results { get; set; }
+    }
+
+    public class ResultsViewModel
+    {
+        public string Name { get; set; }
+        public byte[] File { get; set; }
+        public DateTime DateCreated { get; set; }
         public List<DogBreedViewModel> Results { get; set; }
     }
 }

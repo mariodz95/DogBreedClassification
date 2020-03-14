@@ -43,31 +43,6 @@ button {
   vertical-align: middle;
 }
 
-.sidenav {
-  height: 100%;
-  width: 50px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #52527a;
-  overflow-x: hidden;
-  padding-top: 20px;
-  text-align: center;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 10px;
-  color: #818181;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
 .main {
   margin-left: 80px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
@@ -81,10 +56,4 @@ button {
   .sidenav a {
     font-size: 18px;
   }
-}
-
-.icons {
-  width: 24px !important;
-  height: 24px !important;
-  margin-top: 20px;
 }

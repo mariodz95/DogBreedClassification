@@ -1,0 +1,41 @@
+.App {
+  background-color: #282c34;
+  align-items: center;
+}
+
+.ImgUpload {
+  background-color: #282c34;
+  color: #282c34;
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.sidenav {
+  height: 100%;
+  width: 50px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #52527a;
+  overflow-x: hidden;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.sidenav img {
+  margin-top: 20px;
+}
+
+h2 {
+  color: white;
+}
+
+img {
+  width: 35px;
+  height: auto;
+}
