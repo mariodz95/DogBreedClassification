@@ -70,7 +70,7 @@ class DogBreed extends React.Component {
             className="BtnUpload"
             variant="success"
             onClick={this.uploadHandler}
-            disabled={!rootStore.dogBreedStore.uploadedImage}
+            disabled={rootStore.dogBreedStore.uploadedImage === null}
             size="sm"
           >
             Classify dog breed

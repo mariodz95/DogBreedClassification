@@ -76,7 +76,7 @@ namespace DogBreed.Service
             List<DogImageEntity> result;
             using (var ctx = new DogBreedContext())
             {
-                result = await ctx.DogImages.Include(r => r.PredictionResults).ToListAsync();
+                result = await ctx.DogImages.Include(r => r.PredictionResults).Take(5).ToListAsync();
             }
             return result;
         }

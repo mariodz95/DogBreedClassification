@@ -13,6 +13,7 @@ export class DogBreedStore {
   @action imageRemove() {
     runInAction(() => {
       this.uploadedImage = null;
+      console.log(this.uploadedImage);
     });
   }
 
@@ -21,6 +22,7 @@ export class DogBreedStore {
       if (event.length > 0) {
         this.uploadedImage = event[0];
       } else {
+        this.uploadedImage = null;
         this.prediction.data = null;
       }
     });
