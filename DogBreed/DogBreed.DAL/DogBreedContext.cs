@@ -11,7 +11,6 @@ namespace DogBreed.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder options)
                    => options.UseSqlServer("Server=localhost;Database=DogBreed;Trusted_Connection=True;");
                 
-        public DbSet<DogBreedEntity> DogBreeds { get; set; }
         public DbSet<PredictionResultEntity> PredictionResults { get; set; }
         public DbSet<DogImageEntity> DogImages { get; set; }
     }

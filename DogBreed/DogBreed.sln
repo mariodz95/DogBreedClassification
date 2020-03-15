@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreedML.Model", "DogBree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreedML.ConsoleApp", "DogBreedML.ConsoleApp\DogBreedML.ConsoleApp.csproj", "{9FED7D92-2BFB-4509-9CB5-11D23299AC8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Service", "DogBreed.Service\DogBreed.Service.csproj", "{71F79B0A-1594-4F66-BB9F-51C902F08077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreed.Service", "DogBreed.Service\DogBreed.Service.csproj", "{71F79B0A-1594-4F66-BB9F-51C902F08077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.DAL", "DogBreed.DAL\DogBreed.DAL.csproj", "{5F324C19-5558-43F6-807E-C111D99656DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreed.DAL", "DogBreed.DAL\DogBreed.DAL.csproj", "{5F324C19-5558-43F6-807E-C111D99656DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Repository", "DogBreed.Repository\DogBreed.Repository.csproj", "{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Service.Common", "DogBreed.Service.Common\DogBreed.Service.Common.csproj", "{3E45F220-6536-442F-9CE2-E635E02ABE48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

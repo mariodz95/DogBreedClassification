@@ -8,6 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.ML;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel;
+using Autofac;
+using DogBreed.Service;
+using DogBreed.Service.Common;
+using Autofac.Extensions.DependencyInjection;
 
 namespace DogBreed
 {
@@ -17,11 +23,16 @@ namespace DogBreed
         {
             Configuration = configuration;
         }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // This will all go in the ROOT CONTAINER and is NOT TENANT SPECIFIC.
+            builder.RegisterType<ResponseService>().As<IResponseService>();
+        }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void  ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContextPool<DogBreedContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("localDb")));
 
@@ -36,14 +47,15 @@ namespace DogBreed
                  }));
 
 
-            services.AddPredictionEnginePool<ModelInput, ModelOutput>()
-                .FromFile(modelName: "ModelInput", filePath: "MLModels/MLModel.zip", watchForChanges: true);
+            //services.AddPredictionEnginePool<ModelInput, ModelOutput>()
+            //    .FromFile(modelName: "ModelInput", filePath: "MLModels/MLModel.zip", watchForChanges: true);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ApiClient";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

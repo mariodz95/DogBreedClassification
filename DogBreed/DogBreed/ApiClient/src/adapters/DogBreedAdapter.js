@@ -6,11 +6,16 @@ export class DogBreedAdapter {
     let test = [];
     // Promise is resolved and value is inside of the response const.
     await axios
-      .get("https://localhost:44368/api/predict/getResults")
+      .get("https://localhost:44368/api/predict/getResults", {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        transformResponse: axios.defaults.transformResponse.concat(data => {
+          console.log("transform data", data); // this should now be JSON
+        })
+      })
       .then(res => {
         console.log("Adapter1", res);
-
-        console.log("Adapter", JSON.parse(res.data));
         test = res;
         return test.data;
       })
