@@ -35,14 +35,6 @@ button {
   border: none;
 }
 
-.resultTable {
-  color: white;
-  table-layout: fixed;
-  width: 500px;
-  text-align: center;
-  vertical-align: middle;
-}
-
 .main {
   margin-left: 80px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */

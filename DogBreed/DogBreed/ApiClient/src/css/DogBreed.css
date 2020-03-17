@@ -39,3 +39,53 @@ img {
   width: 35px;
   height: auto;
 }
+
+.resultTable {
+  margin-bottom: 30px;
+  border-collapse: separate;
+  border-spacing: 5em;
+  border-collapse: collapse;
+  color: white;
+  table-layout: fixed;
+  width: 750px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.resultTable2 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-collapse: separate;
+  border-spacing: 5em;
+  border-collapse: collapse;
+  color: white;
+  table-layout: fixed;
+  width: 750px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.resultImage {
+  width: 100px;
+}
+
+tr.resultTr > td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 3px solid #52527a;
+}
+
+tr.resultTr > th {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 3px solid #52527a;
+}
+
+.back {
+  position: fixed;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 50px;
+  top: 0;
+  left: 0;
+}

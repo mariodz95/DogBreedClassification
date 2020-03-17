@@ -5,14 +5,39 @@ export class DogBreedStore {
   @observable prediction = [];
   @observable uploadedImage = null;
   @observable isLoading = false;
+  @observable noMoreResults = false;
+  @observable showModal = false;
+  data = 0;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
+  @action handleOpenModal = () => {
+    runInAction(() => {
+      this.showModal = true;
+    });
+  };
+
+  @action handleCloseModal = () => {
+    runInAction(() => {
+      this.showModal = false;
+    });
+  };
+
+  @action changeLoading() {
+    this.isLoading = false;
+  }
+
   @action imageRemove() {
     runInAction(() => {
       this.uploadedImage = null;
+    });
+  }
+
+  @action removeResult() {
+    runInAction(() => {
+      this.prediction.data = null;
     });
   }
 
@@ -27,10 +52,34 @@ export class DogBreedStore {
     });
   };
 
-  @action async getResults() {
-    const result = await this.rootStore.adapters.dogBreedAdapter.getResults();
+  @action async getResults(refresh, rows) {
+    if (refresh) {
+      this.dogBreedResults = [];
+      this.data = 0;
+      runInAction(() => {
+        this.noMoreResults = false;
+      });
+    }
+
+    this.isLoading = true;
+    const result = await this.rootStore.adapters.dogBreedAdapter.getResults(
+      rows
+    );
+    console.log("result", result);
+
     runInAction(() => {
-      this.dogBreedResults = result;
+      if (result) {
+        if (refresh) {
+          this.dogBreedResults = result;
+        } else {
+          this.dogBreedResults.push(...result);
+          console.log("sasda", this.dogBreedResults.length);
+        }
+        if (this.dogBreedResults.length % 5 > 0) {
+          this.noMoreResults = true;
+        }
+        this.isLoading = false;
+      }
     });
   }
 

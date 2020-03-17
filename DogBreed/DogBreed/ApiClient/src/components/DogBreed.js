@@ -1,11 +1,12 @@
 import React from "react";
 import ImageUploader from "react-images-upload";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./../css/DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { inject, observer } from "mobx-react";
+import Popup from "reactjs-popup";
 
 const override = css`
   display: block;
@@ -34,18 +35,32 @@ class DogBreed extends React.Component {
             onClick={this.handleClick}
           />
           <img
-            src={require("./../images/home.png")}
+            src={require("./../images/history.png")}
             alt="home"
             onClick={this.handleClick}
           />
           <img
             src={require("./../images/info.png")}
             alt="home"
-            onClick={this.handleClick}
+            onClick={rootStore.dogBreedStore.handleOpenModal}
           />
         </div>
         <div className="App">
-          <ToastContainer />
+          <Popup
+            open={rootStore.dogBreedStore.showModal}
+            closeOnDocumentClick
+            onClose={rootStore.dogBreedStore.handleCloseModal}
+          >
+            <div className="modal">
+              <a
+                className="close"
+                onClick={rootStore.dogBreedStore.handleCloseModal}
+              >
+                &times;
+              </a>
+              This web app is made for RUAP...
+            </div>
+          </Popup>
           <ImageUploader
             className="ImgUpload"
             withIcon={true}
@@ -65,7 +80,6 @@ class DogBreed extends React.Component {
               loading={rootStore.dogBreedStore.isLoading}
             />
           </div>
-
           <button
             className="BtnUpload"
             variant="success"
@@ -88,7 +102,7 @@ class DogBreed extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr className="resultTr">
                       <td>{item.name}</td>
                       <td>
                         {Math.round((item.score * 100 + Number.EPSILON) * 100) /
@@ -118,6 +132,8 @@ class DogBreed extends React.Component {
 
   handleClick = () => {
     const { rootStore } = this.props;
+    rootStore.dogBreedStore.imageRemove();
+    rootStore.dogBreedStore.removeResult();
     rootStore.routerStore.goTo("results");
   };
 

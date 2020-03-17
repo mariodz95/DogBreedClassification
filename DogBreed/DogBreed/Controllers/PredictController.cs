@@ -1,7 +1,9 @@
 ﻿
+using DogBreed.DAL.Entities;
 using DogBreed.Service.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace DogBreed.Controllers
@@ -28,9 +30,8 @@ namespace DogBreed.Controllers
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetResults(int row)
-        {
+        {         
             var listOfResults = await _responseService.GetAllResultsAsync(row);
-            var headerlength = listOfResults.ToString().Length;
             return Ok(listOfResults);      
         }
     }

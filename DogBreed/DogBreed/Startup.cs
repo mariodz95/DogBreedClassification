@@ -34,8 +34,6 @@ namespace DogBreed
         // This method gets called by the runtime. Use this method to add services to the container.
         public void  ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContextPool<DogBreedContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("localDb")));
-
             services.AddControllers();
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
@@ -45,10 +43,6 @@ namespace DogBreed
                               .AllowAnyHeader()
                               .AllowAnyMethod();
                  }));
-
-
-            //services.AddPredictionEnginePool<ModelInput, ModelOutput>()
-            //    .FromFile(modelName: "ModelInput", filePath: "MLModels/MLModel.zip", watchForChanges: true);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -7,8 +7,7 @@
 export const routes = [
   {
     name: "dogbreed",
-    pattern: "/",
-    onEnter: (fromState, toState, routerStore) => {}
+    pattern: "/"
   },
   {
     name: "results",
@@ -17,7 +16,9 @@ export const routes = [
       const {
         rootStore: { dogBreedStore }
       } = routerStore;
-      dogBreedStore.getResults();
+      dogBreedStore.changeLoading(true);
+      dogBreedStore.getResults(true, 0);
+      dogBreedStore.changeLoading(false);
     }
   }
 ];

@@ -16,7 +16,6 @@ class App extends Component {
   render() {
     return (
       <Provider rootStore={rootStore}>
-        {console.log("rootstore", rootStore)}
         <Shell />
       </Provider>
     );
