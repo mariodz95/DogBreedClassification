@@ -13,9 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreed.Service", "DogBree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreed.DAL", "DogBreed.DAL\DogBreed.DAL.csproj", "{5F324C19-5558-43F6-807E-C111D99656DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Repository", "DogBreed.Repository\DogBreed.Repository.csproj", "{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogBreed.Service.Common", "DogBreed.Service.Common\DogBreed.Service.Common.csproj", "{3E45F220-6536-442F-9CE2-E635E02ABE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogBreed.Service.Common", "DogBreed.Service.Common\DogBreed.Service.Common.csproj", "{3E45F220-6536-442F-9CE2-E635E02ABE48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F324C19-5558-43F6-807E-C111D99656DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EF9F9C8-0606-4E6F-B55F-F00936020ED7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E45F220-6536-442F-9CE2-E635E02ABE48}.Release|Any CPU.ActiveCfg = Release|Any CPU

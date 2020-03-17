@@ -124,12 +124,13 @@ namespace DogBreed.Service
             return result;
         }
 
-        public async Task<List<DogImageEntity>> GetAllResultsAsync()
+        public async Task<DogImageEntity> GetAllResultsAsync(int row)
         {
-            List<DogImageEntity> result;
+            DogImageEntity result;
             using (var ctx = new DogBreedContext())
             {
-                result = await ctx.DogImages.Include(r => r.PredictionResults).Take(5).ToListAsync();
+                result = await ctx.DogImages.OrderByDescending(r => r.DateCreated).Skip(row).Take(1).FirstOrDefaultAsync();
+                result.PredictionResults = await ctx.PredictionResults.FirstOrDefaultAsync(p => p.DogImageId == result.Id);
             }
             return result;
         }

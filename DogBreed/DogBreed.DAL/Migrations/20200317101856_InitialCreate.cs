@@ -8,21 +8,6 @@ namespace DogBreed.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DogBreeds",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Abrv = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateUpdated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DogBreeds", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DogImages",
                 columns: table => new
                 {
@@ -49,30 +34,28 @@ namespace DogBreed.DAL.Migrations
                     Score = table.Column<float>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
-                    DogImageId = table.Column<Guid>(nullable: false)
+                    DogImageId = table.Column<Guid>(nullable: false),
+                    DogImageEntityId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PredictionResults", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PredictionResults_DogImages_DogImageId",
-                        column: x => x.DogImageId,
+                        name: "FK_PredictionResults_DogImages_DogImageEntityId",
+                        column: x => x.DogImageEntityId,
                         principalTable: "DogImages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PredictionResults_DogImageId",
+                name: "IX_PredictionResults_DogImageEntityId",
                 table: "PredictionResults",
-                column: "DogImageId");
+                column: "DogImageEntityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "DogBreeds");
-
             migrationBuilder.DropTable(
                 name: "PredictionResults");
 

@@ -10,6 +10,6 @@ namespace DogBreed.Service.Common
     public interface IResponseService
     {
         Task<List<DogImageEntity>> Classify(IFormFile formData);
-        Task<List<DogImageEntity>> GetAllResultsAsync();
+        Task<DogImageEntity> GetAllResultsAsync(int row);
     }
 }

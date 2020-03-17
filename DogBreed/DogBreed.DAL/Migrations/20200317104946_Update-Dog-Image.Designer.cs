@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogBreed.DAL.Migrations
 {
     [DbContext(typeof(DogBreedContext))]
-    [Migration("20200313173737_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200317104946_Update-Dog-Image")]
+    partial class UpdateDogImage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,29 +20,6 @@ namespace DogBreed.DAL.Migrations
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("DogBreed.DAL.Entities.DogBreedEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Abrv")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DogBreeds");
-                });
 
             modelBuilder.Entity("DogBreed.DAL.Entities.DogImageEntity", b =>
                 {
@@ -65,13 +42,17 @@ namespace DogBreed.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PredictionResultsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Score")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
 
-                    b.ToTable("DogImages");
+                    b.HasIndex("PredictionResultsId");
 
+                    b.ToTable("DogImages");
                 });
 
             modelBuilder.Entity("DogBreed.DAL.Entities.PredictionResultEntity", b =>
@@ -100,19 +81,14 @@ namespace DogBreed.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DogImageId");
-
                     b.ToTable("PredictionResults");
-
                 });
 
-            modelBuilder.Entity("DogBreed.DAL.Entities.PredictionResultEntity", b =>
+            modelBuilder.Entity("DogBreed.DAL.Entities.DogImageEntity", b =>
                 {
-                    b.HasOne("DogBreed.DAL.Entities.DogImageEntity", "DogImage")
-                        .WithMany("PredictionResults")
-                        .HasForeignKey("DogImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("DogBreed.DAL.Entities.PredictionResultEntity", "PredictionResults")
+                        .WithMany()
+                        .HasForeignKey("PredictionResultsId");
                 });
 #pragma warning restore 612, 618
         }

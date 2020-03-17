@@ -1,19 +1,7 @@
-﻿using DogBreed.DAL.Entities;
-using DogBreed.Service;
+﻿
 using DogBreed.Service.Common;
-using DogBreed.Shared;
-using DogBreed.ViewModel;
-using DogBreedML.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.ML;
-using Microsoft.ML;
-using Microsoft.ML.Data;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DogBreed.Controllers
@@ -39,11 +27,11 @@ namespace DogBreed.Controllers
 
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetResults()
+        public async Task<IActionResult> GetResults(int row)
         {
-            var listOfResults = await _responseService.GetAllResultsAsync();
-            return Ok(listOfResults);
-        
+            var listOfResults = await _responseService.GetAllResultsAsync(row);
+            var headerlength = listOfResults.ToString().Length;
+            return Ok(listOfResults);      
         }
     }
 }

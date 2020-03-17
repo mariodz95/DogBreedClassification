@@ -13,7 +13,6 @@ export class DogBreedStore {
   @action imageRemove() {
     runInAction(() => {
       this.uploadedImage = null;
-      console.log(this.uploadedImage);
     });
   }
 

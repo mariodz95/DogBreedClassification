@@ -124,7 +124,6 @@ class DogBreed extends React.Component {
   uploadHandler = () => {
     const { rootStore } = this.props;
     const formData = new FormData();
-    console.log("t", rootStore.dogBreedStore.uploadedImage);
     formData.append(
       "formData",
       rootStore.dogBreedStore.uploadedImage,

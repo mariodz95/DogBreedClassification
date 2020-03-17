@@ -20,6 +20,6 @@ namespace DogBreed.DAL.Entities
 
         public DateTime DateUpdated { get; set; }
         
-        public List<PredictionResultEntity> PredictionResults { get; set; }
+        public PredictionResultEntity PredictionResults { get; set; }
     }
 }
