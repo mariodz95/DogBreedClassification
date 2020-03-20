@@ -3,7 +3,6 @@ import { observer, inject } from "mobx-react";
 import "./../css/DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
-import Modal from "react-modal";
 
 const override = css`
   display: block;
