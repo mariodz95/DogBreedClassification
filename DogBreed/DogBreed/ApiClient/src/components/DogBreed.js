@@ -1,6 +1,5 @@
 import React from "react";
 import ImageUploader from "react-images-upload";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./../css/DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -32,7 +31,7 @@ class DogBreed extends React.Component {
           <img
             src={require("./../images/login.png")}
             alt="home"
-            onClick={this.handleClick}
+            onClick={this.handleRegistrationClick}
           />
           <img
             src={require("./../images/history.png")}
@@ -58,7 +57,8 @@ class DogBreed extends React.Component {
               >
                 &times;
               </a>
-              This web app is made for RUAP...
+              <img src={require("./../images/ferit.png")} alt="ferit" />
+              This web app is made for RUAP and can predict 120 dog breeds.
             </div>
           </Popup>
           <ImageUploader
@@ -135,6 +135,13 @@ class DogBreed extends React.Component {
     rootStore.dogBreedStore.imageRemove();
     rootStore.dogBreedStore.removeResult();
     rootStore.routerStore.goTo("results");
+  };
+
+  handleRegistrationClick = () => {
+    const { rootStore } = this.props;
+    rootStore.dogBreedStore.imageRemove();
+    rootStore.dogBreedStore.removeResult();
+    rootStore.routerStore.goTo("registration");
   };
 
   uploadHandler = () => {

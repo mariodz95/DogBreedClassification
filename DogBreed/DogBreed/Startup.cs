@@ -14,6 +14,8 @@ using Autofac;
 using DogBreed.Service;
 using DogBreed.Service.Common;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace DogBreed
 {
@@ -34,6 +36,12 @@ namespace DogBreed
         // This method gets called by the runtime. Use this method to add services to the container.
         public void  ConfigureServices(IServiceCollection services)
         {
+            //    services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DogBreedContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<DogBreedContext>()
+                    .AddDefaultTokenProviders();
+
             services.AddControllers();
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
@@ -64,7 +72,10 @@ namespace DogBreed
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
 
             //Make sure you call this before calling app.UseMvc()
             app.UseCors("ApiCorsPolicy");

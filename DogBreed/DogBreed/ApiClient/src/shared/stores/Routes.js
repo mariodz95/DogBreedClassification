@@ -10,6 +10,14 @@ export const routes = [
     pattern: "/"
   },
   {
+    name: "login",
+    pattern: "/login"
+  },
+  {
+    name: "registration",
+    pattern: "/registraion"
+  },
+  {
     name: "results",
     pattern: "/results",
     onEnter: (fromState, toState, routerStore) => {

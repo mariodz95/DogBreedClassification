@@ -71,6 +71,64 @@ namespace DogBreed.Service
             return dogList;
         }
 
+        public async Task<UserEntity> RegisterAsync(string email, string password)
+        {
+            bool exist = await CheckIfUserExist(email);
+            UserEntity result;
+            if (!exist)
+            {
+                using (var ctx = new DogBreedContext())
+                {
+                    result = new UserEntity()
+                    {
+                        Id = Guid.NewGuid(),
+                        Email = email,
+                        Password = password,
+                        ConfirmPassword = password,
+                        DateCreated = DateTime.Now,
+                        DateUpdated = DateTime.Now
+                    };
+                    await ctx.AddAsync(result);
+                    await ctx.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                throw new Exception("User already exist");
+            }
+            return result;
+        }
+
+        public async Task<UserEntity> LoginAsync(string email, string password) 
+        {
+            bool loginSuccessful = await CheckIfUserExist(email);
+            UserEntity user;
+            if(loginSuccessful)
+            {
+                using (var ctx = new DogBreedContext())
+                {
+                    user = await ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
+                    return user;
+                }
+            }
+            else
+            {
+                throw new Exception("User doesn't exist");
+            }
+        }
+        public async Task<bool> CheckIfUserExist(string email) 
+        {
+            List<UserEntity> users;
+            bool userExist;
+            using(var ctx = new DogBreedContext())
+            {
+                users = await ctx.Users.ToListAsync();
+                userExist = users.Any(u => u.Email == email);   
+            }
+            return userExist;
+
+        }
+
         private async Task<PredictionResultEntity> AddResultAsync(Guid imageId, string name, float score) 
         {
             PredictionResultEntity result;

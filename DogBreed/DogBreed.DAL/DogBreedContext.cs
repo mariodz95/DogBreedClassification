@@ -1,4 +1,5 @@
 ﻿using DogBreed.DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace DogBreed.DAL
                 
         public DbSet<PredictionResultEntity> PredictionResults { get; set; }
         public DbSet<DogImageEntity> DogImages { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+
     }
 }

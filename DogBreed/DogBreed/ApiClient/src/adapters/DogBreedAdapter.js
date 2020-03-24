@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RootStore } from "../shared/stores/RootStore";
 
 export class DogBreedAdapter {
   async getResults(data) {
@@ -53,7 +54,38 @@ export class DogBreedAdapter {
   async getPrediction(formData) {
     let result = [];
     await axios
-      .post("https://localhost:44368/api/predict/classify", formData)
+      .post("https://localhost:44368/api/predict/registration", formData)
+      .then(res => {
+        result = res;
+      });
+    return await result;
+  }
+
+  async registration(email, password) {
+    let result;
+    await axios
+      .post(
+        "https://localhost:44368/api/account/registration?email=" +
+          email +
+          "&password=" +
+          password
+      )
+      .then(res => {
+        result = res;
+      });
+
+    return await result;
+  }
+
+  async login(email, password) {
+    let result;
+    await axios
+      .post(
+        "https://localhost:44368/api/account/login?email=" +
+          email +
+          "&password=" +
+          password
+      )
       .then(res => {
         result = res;
       });

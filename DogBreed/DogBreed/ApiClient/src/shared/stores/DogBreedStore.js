@@ -1,4 +1,5 @@
 import { action, runInAction, observable } from "mobx";
+import RegistrationForm from "../../components/RegistrationForm";
 
 export class DogBreedStore {
   @observable dogBreedResults = [];
@@ -7,6 +8,7 @@ export class DogBreedStore {
   @observable isLoading = false;
   @observable noMoreResults = false;
   @observable showModal = false;
+  userObject = null;
   data = 0;
 
   constructor(rootStore) {
@@ -65,8 +67,6 @@ export class DogBreedStore {
     const result = await this.rootStore.adapters.dogBreedAdapter.getResults(
       rows
     );
-    console.log("result", result);
-
     runInAction(() => {
       if (result) {
         if (refresh) {
@@ -92,5 +92,19 @@ export class DogBreedStore {
       this.prediction = result;
       this.isLoading = false;
     });
+  }
+
+  @action async registration(email, password) {
+    const result = await this.rootStore.adapters.dogBreedAdapter.registration(
+      email,
+      password
+    );
+  }
+
+  @action async login(email, password) {
+    const result = await this.rootStore.adapters.dogBreedAdapter.login(
+      email,
+      password
+    );
   }
 }
