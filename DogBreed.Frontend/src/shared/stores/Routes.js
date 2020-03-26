@@ -7,7 +7,7 @@
 export const routes = [
   {
     name: "dogbreed",
-    pattern: "/"
+    pattern: "/dogbreed"
   },
   {
     name: "login",
@@ -15,7 +15,7 @@ export const routes = [
   },
   {
     name: "registration",
-    pattern: "/registration"
+    pattern: "/"
   },
   {
     name: "results",

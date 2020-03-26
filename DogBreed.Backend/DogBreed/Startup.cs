@@ -57,13 +57,6 @@ namespace DogBreed
                               .AllowAnyHeader()
                               .AllowAnyMethod();
                  }));
-
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ApiClient";
-            });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,16 +82,6 @@ namespace DogBreed
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ApiClient";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
             });
         }
     }

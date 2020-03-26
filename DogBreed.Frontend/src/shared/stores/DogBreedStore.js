@@ -1,6 +1,5 @@
 import { action, runInAction, observable } from "mobx";
-import RegistrationForm from "../../components/RegistrationForm";
-import Registration from "../../components/Registration";
+import LoginForm from "../../components/LoginForm";
 
 export class DogBreedStore {
   @observable dogBreedResults = [];
@@ -15,6 +14,8 @@ export class DogBreedStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
+
+  form = new LoginForm(this);
 
   @action handleOpenModal = () => {
     runInAction(() => {
@@ -103,10 +104,13 @@ export class DogBreedStore {
   }
 
   @action async login(email, password) {
+    console.log("test");
+
     const result = await this.rootStore.adapters.dogBreedAdapter.login(
       email,
       password
     );
-    return await result;
+    console.log("test");
+    this.rootStore.routerStore.goTo("dogbreed");
   }
 }
