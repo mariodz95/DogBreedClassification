@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DogBreed.DAL\DogBreed.DAL.csproj" />
+    <ProjectReference Include="..\DogBreed.Model\DogBreed.Model.csproj" />
+    <ProjectReference Include="..\DogBreed.Repository.Common\DogBreed.Repository.Common.csproj" />
     <ProjectReference Include="..\DogBreed.Service.Common\DogBreed.Service.Common.csproj" />
     <ProjectReference Include="..\DogBreedML.Model\DogBreedML.Model.csproj" />
   </ItemGroup>

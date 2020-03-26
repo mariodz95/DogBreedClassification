@@ -38,7 +38,7 @@ class Login extends React.Component {
     const { rootStore } = this.props;
     const result = rootStore.dogBreedStore.login(
       "mariodz95@gmail.com",
-      "test123"
+      "testasdas123"
     );
     console.log("handle clikc", result);
 

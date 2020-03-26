@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DogBreed.DAL.Entities;
 using DogBreed.Service.Common;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DogBreed.Controllers
@@ -15,32 +10,26 @@ namespace DogBreed.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IResponseService _responseService;
-        public  UserManager<IdentityUser> _userManager;
-        public SignInManager<IdentityUser> _signInManager;
+        private readonly IAccountService _accountService;
 
-        public AccountController(IResponseService responseService /*UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManage*/)
+
+        public AccountController(IAccountService accountService)
         {
-            _responseService = responseService;
-            //_userManager = userManager;
-            //_signInManager = signInManager;
+            _accountService = accountService;
         }
-
-
-
 
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task<IActionResult> Registration(string email, string password)
         {
-            UserEntity result = await _responseService.RegisterAsync(email, password);
+            var result = await _accountService.RegisterAsync(email, password);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(string email, string password)
         {
-            UserEntity result = await _responseService.LoginAsync(email, password);
+            var result = await _accountService.LoginAsync(email, password);
             return Ok(result);
         }
     }
