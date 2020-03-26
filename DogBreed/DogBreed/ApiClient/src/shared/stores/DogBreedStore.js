@@ -1,5 +1,6 @@
 import { action, runInAction, observable } from "mobx";
 import RegistrationForm from "../../components/RegistrationForm";
+import Registration from "../../components/Registration";
 
 export class DogBreedStore {
   @observable dogBreedResults = [];
@@ -106,5 +107,6 @@ export class DogBreedStore {
       email,
       password
     );
+    return await result;
   }
 }

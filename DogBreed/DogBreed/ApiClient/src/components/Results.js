@@ -80,7 +80,6 @@ class Results extends React.Component {
 
   handleClick = () => {
     const { rootStore } = this.props;
-    console.log("atasd", rootStore.routerStore.goTo("dogbreed"));
     rootStore.routerStore.goTo("dogbreed");
   };
 }

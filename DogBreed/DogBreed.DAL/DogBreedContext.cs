@@ -15,6 +15,5 @@ namespace DogBreed.DAL
         public DbSet<PredictionResultEntity> PredictionResults { get; set; }
         public DbSet<DogImageEntity> DogImages { get; set; }
         public DbSet<UserEntity> Users { get; set; }
-
     }
 }

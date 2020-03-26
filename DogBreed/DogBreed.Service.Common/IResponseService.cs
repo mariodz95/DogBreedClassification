@@ -14,6 +14,5 @@ namespace DogBreed.Service.Common
         Task<UserEntity> RegisterAsync(string email, string password);
         Task<bool> CheckIfUserExist(string email);
         Task<UserEntity> LoginAsync(string email, string password); 
-
     }
 }

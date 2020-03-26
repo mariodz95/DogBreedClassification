@@ -53,8 +53,6 @@ export default class LoginForm extends Form {
         adapter.login(data.email, data.password);
         // get field values
         let rootStore = new RootStore();
-
-        adapter.registration(data.email, data.password);
         console.log("test", rootStore.routerStore.goTo("dogbreed"));
         rootStore.routerStore.goTo("dogbreed");
         console.log("Form Values!", form.values());

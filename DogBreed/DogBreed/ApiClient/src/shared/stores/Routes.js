@@ -15,7 +15,7 @@ export const routes = [
   },
   {
     name: "registration",
-    pattern: "/registraion"
+    pattern: "/registration"
   },
   {
     name: "results",

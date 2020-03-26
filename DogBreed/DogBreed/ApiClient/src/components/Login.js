@@ -10,30 +10,45 @@ class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <form>
+        {/* <form>
           <label>{form.$("email").label}</label>
           <input {...form.$("email").bind()} />
           <p>{form.$("email").error}</p>
 
           <label htmlFor={form.$("password")}>{form.$("password").label}</label>
           <input {...form.$("password").bind()} />
-          <p>{form.$("password").error}</p>
+          <p>{form.$("password").error}</p> */}
 
-          <button type="submit" onClick={form.onSubmit}>
-            Submit
-          </button>
-          <button type="button" onClick={form.onClear}>
+        <button type="submit" onClick={this.handleClick}>
+          Submit
+        </button>
+        {/* <button type="button" onClick={form.onClear}>
             Clear
           </button>
           <button type="button" onClick={form.onReset}>
             Reset
           </button>
 
-          <p>{form.error}</p>
-        </form>
+          <p>{form.error}</p> */}
+        {/* </form> */}
       </React.Fragment>
     );
   }
+  handleClick = () => {
+    const { rootStore } = this.props;
+    const result = rootStore.dogBreedStore.login(
+      "mariodz95@gmail.com",
+      "test123"
+    );
+    console.log("handle clikc", result);
+
+    console.log("handle clikc promise", result.promise);
+    if (result.promise) {
+      console.log("handle clikc result", result);
+
+      rootStore.routerStore.goTo("dogbreed");
+    }
+  };
 }
 
 export default Login;
