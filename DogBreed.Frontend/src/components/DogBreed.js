@@ -6,6 +6,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { inject, observer } from "mobx-react";
 import Popup from "reactjs-popup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const override = css`
   display: block;
@@ -23,10 +25,16 @@ class DogBreed extends React.Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
+  notify = () => toast.success("Welcome!");
   render() {
     const { rootStore } = this.props;
+    if (rootStore.dogBreedStore.toast) {
+      this.notify();
+      rootStore.dogBreedStore.displayToast();
+    }
     return (
       <React.Fragment>
+        <ToastContainer />
         <div className="sidenav">
           <img
             src={require("./../images/login.png")}

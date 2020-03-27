@@ -11,6 +11,8 @@ using DogBreed.Service.Common;
 using DogBreed.Repository.Common;
 using DogBreed.Model.Common;
 using DogBreed.Model;
+using System;
+using System.Reflection;
 
 namespace DogBreed.Service
 {
@@ -24,7 +26,7 @@ namespace DogBreed.Service
 
         public async Task<List<IDogImage>> Classify(IFormFile formData)
         {
-            var filePath = $"G:\\Ruap project\\DogBreed\\DogBreed\\{formData.FileName}";
+            var filePath = $"G:\\Ruap project\\DogBreed.Backend\\DogBreed\\{formData.FileName}";
 
             if (formData.Length > 0)
             {

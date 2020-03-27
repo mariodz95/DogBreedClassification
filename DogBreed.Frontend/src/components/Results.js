@@ -41,7 +41,9 @@ class Results extends React.Component {
                       <img
                         className="resultImage"
                         alt="dog"
-                        src={`data:image/jpeg;base64,${item.file}`}
+                        src={`data:image/jpeg;base64,${
+                          item !== undefined ? item.file : ""
+                        }`}
                       ></img>
                     </td>
                     <td>{item.predictionResults.name}</td>

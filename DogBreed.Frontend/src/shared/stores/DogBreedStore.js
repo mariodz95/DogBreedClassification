@@ -1,5 +1,6 @@
 import { action, runInAction, observable } from "mobx";
 import LoginForm from "../../components/LoginForm";
+import RegistrationForm from "../../components/RegistrationForm";
 
 export class DogBreedStore {
   @observable dogBreedResults = [];
@@ -10,12 +11,31 @@ export class DogBreedStore {
   @observable showModal = false;
   userObject = null;
   data = 0;
+  @observable passwordType = "password";
+  @observable loginFailed = false;
+  @observable registrationFailed = false;
+  @observable toast = false;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
   form = new LoginForm(this);
+  regForm = new RegistrationForm(this);
+
+  changePasswordType = () => {
+    runInAction(() => {
+      this.passwordType === "password"
+        ? (this.passwordType = "text")
+        : (this.passwordType = "password");
+    });
+  };
+
+  @action displayToast = () => {
+    runInAction(() => {
+      this.toast = false;
+    });
+  };
 
   @action handleOpenModal = () => {
     runInAction(() => {
@@ -75,7 +95,6 @@ export class DogBreedStore {
           this.dogBreedResults = result;
         } else {
           this.dogBreedResults.push(...result);
-          console.log("sasda", this.dogBreedResults.length);
         }
         if (this.dogBreedResults.length % 5 > 0) {
           this.noMoreResults = true;
@@ -101,16 +120,32 @@ export class DogBreedStore {
       email,
       password
     );
+    if (result.data !== "") {
+      this.rootStore.routerStore.goTo("dogbreed");
+      runInAction(() => {
+        this.toast = true;
+      });
+    } else {
+      runInAction(() => {
+        this.registrationFailed = true;
+      });
+    }
   }
 
   @action async login(email, password) {
-    console.log("test");
-
     const result = await this.rootStore.adapters.dogBreedAdapter.login(
       email,
       password
     );
-    console.log("test");
-    this.rootStore.routerStore.goTo("dogbreed");
+    if (result.data.length === undefined) {
+      this.rootStore.routerStore.goTo("dogbreed");
+      runInAction(() => {
+        this.toast = true;
+      });
+    } else {
+      runInAction(() => {
+        this.loginFailed = true;
+      });
+    }
   }
 }

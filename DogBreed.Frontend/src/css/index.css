@@ -23,7 +23,7 @@ code {
 }
 button {
   padding: 6px 23px;
-  background: #4caf50;
+  background: #3bb197;
   border-radius: 30px;
   color: white;
   font-weight: 300;
@@ -48,4 +48,7 @@ button {
   .sidenav a {
     font-size: 18px;
   }
+}
+p {
+  color: white;
 }

@@ -35,23 +35,9 @@ export default class LoginForm extends Form {
     return {
       onSuccess(form) {
         const data = form.values();
-        alert("Form has asdasdsa!");
-        console.log("Sada test", form.values());
-
-        console.log("Sada test", this.dogBreedStore);
         this.dogBreedStore.login(data.email, data.password);
-        // const adapter = new DogBreedAdapter();
-        //dogBreedStore.login(data.email, data.password);
-        //adapter.login(data.email, data.password);
-        // let rootStore = new RootStore();
-        // console.log("test", rootStore.routerStore.goTo("dogbreed"));
-        // rootStore.routerStore.goTo("dogbreed");
-        // console.log("Form Values!", form.values());
       },
-      onError(form) {
-        alert("Form has errors!");
-        console.log("All form errors", form.errors());
-      }
+      onError(form) {}
     };
   }
 }

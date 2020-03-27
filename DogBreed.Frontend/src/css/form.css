@@ -1,18 +1,15 @@
-.loginForm {
+.form {
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  /* background-color: #52527a; */
   padding: 50px;
-  /* background: #73ad21;
- */
   border-radius: 25px;
-  background: #1c7c6f;
+  background: #184b85;
 }
 
-input[type="text"],
+input,
 select {
   width: 100%;
   padding: 12px 20px;
@@ -34,10 +31,28 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-button {
-  background-color: tomato;
-}
-
 label {
   color: white;
+}
+
+.formError {
+  color: red;
+}
+
+.formButton {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.password__show {
+  color: white;
+}
+
+a {
+  text-decoration: underline;
+  color: white;
+}
+
+a:hover {
+  color: grey;
 }
