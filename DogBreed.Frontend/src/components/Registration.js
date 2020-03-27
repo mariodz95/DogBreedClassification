@@ -49,6 +49,7 @@ class Registration extends React.Component {
             {rootStore.dogBreedStore.registrationFailed ? (
               <p className="formError">User with this email already exist!</p>
             ) : null}
+            <br />
             <button
               className="formButton"
               type="button"
@@ -63,6 +64,7 @@ class Registration extends React.Component {
             >
               Submit
             </button>
+            <br />
             <a onClick={this.handleClick}>Alread have account?</a>
             <p>{rootStore.dogBreedStore.regForm.error}</p>
           </form>

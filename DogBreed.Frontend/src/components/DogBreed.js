@@ -37,19 +37,19 @@ class DogBreed extends React.Component {
         <ToastContainer />
         <div className="sidenav">
           <img
-            src={require("./../images/login.png")}
-            alt="home"
-            onClick={this.handleRegistrationClick}
-          />
-          <img
             src={require("./../images/history.png")}
-            alt="home"
+            alt="results"
             onClick={this.handleClick}
           />
           <img
             src={require("./../images/info.png")}
-            alt="home"
+            alt="info"
             onClick={rootStore.dogBreedStore.handleOpenModal}
+          />
+          <img
+            src={require("./../images/logout.png")}
+            alt="logout"
+            onClick={this.handleRegistrationClick}
           />
         </div>
         <div className="App">
@@ -149,7 +149,7 @@ class DogBreed extends React.Component {
     const { rootStore } = this.props;
     rootStore.dogBreedStore.imageRemove();
     rootStore.dogBreedStore.removeResult();
-    rootStore.routerStore.goTo("registration");
+    rootStore.routerStore.goTo("login");
   };
 
   uploadHandler = () => {

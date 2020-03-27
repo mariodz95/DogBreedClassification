@@ -1,13 +1,18 @@
-// Routes are matched from top to bottom. Make sure they are sequenced
-// in the order of priority. It is generally best to sort them by pattern,
-// prioritizing specific patterns over generic patterns (patterns with
-// one or more parameters). For example:
-//     /items
-//     /items/:id
+import { history } from "../../shared/utils/History";
+import { RouterState } from "mobx-state-router";
+
 export const routes = [
   {
     name: "dogbreed",
-    pattern: "/dogbreed"
+    pattern: "/dogbreed",
+    beforeEnter: (fromState, toState, routerStore) => {
+      const {
+        rootStore: { dogBreedStore }
+      } = routerStore;
+      if (dogBreedStore.user === null) {
+        return Promise.reject(new RouterState("login"));
+      }
+    }
   },
   {
     name: "login",
@@ -24,9 +29,13 @@ export const routes = [
       const {
         rootStore: { dogBreedStore }
       } = routerStore;
-      dogBreedStore.changeLoading(true);
-      dogBreedStore.getResults(true, 0);
-      dogBreedStore.changeLoading(false);
+      if (dogBreedStore.user === null) {
+        return Promise.reject(new RouterState("login"));
+      } else {
+        dogBreedStore.changeLoading(true);
+        dogBreedStore.getResults(true, 0);
+        dogBreedStore.changeLoading(false);
+      }
     }
   }
 ];

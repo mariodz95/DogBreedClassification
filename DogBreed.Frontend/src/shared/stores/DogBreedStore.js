@@ -15,6 +15,7 @@ export class DogBreedStore {
   @observable loginFailed = false;
   @observable registrationFailed = false;
   @observable toast = false;
+  @observable user = null;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -22,6 +23,11 @@ export class DogBreedStore {
 
   form = new LoginForm(this);
   regForm = new RegistrationForm(this);
+
+  redirectUser = () => {
+    console.log("Check user 222", this.user);
+    this.rootStore.routerStore.goTo("login");
+  };
 
   changePasswordType = () => {
     runInAction(() => {
@@ -138,10 +144,11 @@ export class DogBreedStore {
       password
     );
     if (result.data.length === undefined) {
-      this.rootStore.routerStore.goTo("dogbreed");
       runInAction(() => {
+        this.user = result;
         this.toast = true;
       });
+      this.rootStore.routerStore.goTo("dogbreed");
     } else {
       runInAction(() => {
         this.loginFailed = true;
