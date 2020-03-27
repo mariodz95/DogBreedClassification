@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogBreed.DAL.Migrations
 {
     [DbContext(typeof(DogBreedContext))]
-    [Migration("20200321221530_noviupdate")]
-    partial class noviupdate
+    [Migration("20200327140601_initial-db")]
+    partial class initialdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace DogBreed.DAL.Migrations
                     b.Property<float>("Score")
                         .HasColumnType("real");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PredictionResultsId");
@@ -82,6 +85,32 @@ namespace DogBreed.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PredictionResults");
+                });
+
+            modelBuilder.Entity("DogBreed.DAL.Entities.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfirmPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DogBreed.DAL.Entities.DogImageEntity", b =>

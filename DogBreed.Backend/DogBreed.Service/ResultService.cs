@@ -24,7 +24,7 @@ namespace DogBreed.Service
             _resultRepository = resultRepository;
         }
 
-        public async Task<List<IDogImage>> Classify(IFormFile formData)
+        public async Task<List<IDogImage>> Classify(IFormFile formData, Guid userId)
         {
             var filePath = $"G:\\Ruap project\\DogBreed.Backend\\DogBreed\\{formData.FileName}";
 
@@ -51,7 +51,7 @@ namespace DogBreed.Service
 
             List<IDogImage> dogList = new List<IDogImage>();
 
-            IDogImage image = await _resultRepository.AddImageAsync(formData.FileName, file);
+            IDogImage image = await _resultRepository.AddImageAsync(formData.FileName, file, userId);
             int counter = 1;
             foreach (KeyValuePair<string, float> item in scores.Take(5))
             {
@@ -71,9 +71,9 @@ namespace DogBreed.Service
             return dogList;
         }
 
-        public async Task<IDogImage> GetAllResultsAsync(int row)
+        public async Task<IDogImage> GetAllResultsAsync(int row, Guid userId)
         {
-            return await _resultRepository.GetAllResultsAsync(row);
+            return await _resultRepository.GetAllResultsAsync(row, userId);
         }
     }
 }

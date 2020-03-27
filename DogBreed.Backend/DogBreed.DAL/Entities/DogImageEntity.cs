@@ -19,6 +19,8 @@ namespace DogBreed.DAL.Entities
         public DateTime DateCreated { get; set; }
 
         public DateTime DateUpdated { get; set; }
+
+        public Guid UserId { get; set; }
         
         public PredictionResultEntity PredictionResults { get; set; }
     }

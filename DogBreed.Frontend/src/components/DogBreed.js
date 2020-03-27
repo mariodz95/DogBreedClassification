@@ -49,7 +49,7 @@ class DogBreed extends React.Component {
           <img
             src={require("./../images/logout.png")}
             alt="logout"
-            onClick={this.handleRegistrationClick}
+            onClick={this.handleLogoutClick}
           />
         </div>
         <div className="App">
@@ -145,7 +145,7 @@ class DogBreed extends React.Component {
     rootStore.routerStore.goTo("results");
   };
 
-  handleRegistrationClick = () => {
+  handleLogoutClick = () => {
     const { rootStore } = this.props;
     rootStore.dogBreedStore.imageRemove();
     rootStore.dogBreedStore.removeResult();
@@ -160,7 +160,10 @@ class DogBreed extends React.Component {
       rootStore.dogBreedStore.uploadedImage,
       rootStore.dogBreedStore.uploadedImage.name
     );
-    rootStore.dogBreedStore.getPrediction(formData);
+    rootStore.dogBreedStore.getPrediction(
+      formData,
+      rootStore.dogBreedStore.user.data.id
+    );
   };
 }
 

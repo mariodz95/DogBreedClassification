@@ -18,16 +18,16 @@ namespace DogBreed.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Classify([FromForm]IFormFile formData)
+        public async Task<IActionResult> Classify(Guid userId, [FromForm]IFormFile formData)
         {
-            var predictionResult = await _resultService.Classify(formData);
+            var predictionResult = await _resultService.Classify(formData, userId);
             return Ok(predictionResult);
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetResults(int row)
+        public async Task<IActionResult> GetResults(int row, Guid userId)
         {         
-            var listOfResults = await _resultService.GetAllResultsAsync(row);
+            var listOfResults = await _resultService.GetAllResultsAsync(row, userId);
             return Ok(listOfResults);      
         }
     }

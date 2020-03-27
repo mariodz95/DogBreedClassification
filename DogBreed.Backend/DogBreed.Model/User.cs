@@ -18,5 +18,7 @@ namespace DogBreed.Model
         public DateTime DateCreated { get; set; }
 
         public DateTime DateUpdated { get; set; }
+
+        public IDogImage DogImage { get; set; }
     }
 }

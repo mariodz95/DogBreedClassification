@@ -21,5 +21,6 @@ namespace DogBreed.Model.Common
         public DateTime DateUpdated { get; set; }
       
         public IPredictionResult PredictionResults { get; set; }
+        public Guid UserId { get; set; }
     }
 }

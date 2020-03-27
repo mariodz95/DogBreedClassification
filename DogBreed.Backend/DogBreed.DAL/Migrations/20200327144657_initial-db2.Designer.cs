@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogBreed.DAL.Migrations
 {
     [DbContext(typeof(DogBreedContext))]
-    [Migration("20200317104946_Update-Dog-Image")]
-    partial class UpdateDogImage
+    [Migration("20200327144657_initial-db2")]
+    partial class initialdb2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,9 @@ namespace DogBreed.DAL.Migrations
 
                     b.Property<float>("Score")
                         .HasColumnType("real");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -84,11 +87,49 @@ namespace DogBreed.DAL.Migrations
                     b.ToTable("PredictionResults");
                 });
 
+            modelBuilder.Entity("DogBreed.DAL.Entities.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfirmPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DogImageEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DogImageEntityId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("DogBreed.DAL.Entities.DogImageEntity", b =>
                 {
                     b.HasOne("DogBreed.DAL.Entities.PredictionResultEntity", "PredictionResults")
                         .WithMany()
                         .HasForeignKey("PredictionResultsId");
+                });
+
+            modelBuilder.Entity("DogBreed.DAL.Entities.UserEntity", b =>
+                {
+                    b.HasOne("DogBreed.DAL.Entities.DogImageEntity", "DogImageEntity")
+                        .WithMany()
+                        .HasForeignKey("DogImageEntityId");
                 });
 #pragma warning restore 612, 618
         }

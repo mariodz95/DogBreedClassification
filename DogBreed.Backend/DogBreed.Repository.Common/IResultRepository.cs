@@ -8,7 +8,7 @@ namespace DogBreed.Repository.Common
     public interface IResultRepository
     {
         Task<IPredictionResult> AddResultAsync(Guid imageId, string name, float score);
-        Task<IDogImage> AddImageAsync(string name, byte[] file);
-        Task<IDogImage> GetAllResultsAsync(int row);
+        Task<IDogImage> AddImageAsync(string name, byte[] file, Guid userId);
+        Task<IDogImage> GetAllResultsAsync(int row, Guid userId);
     }
 }

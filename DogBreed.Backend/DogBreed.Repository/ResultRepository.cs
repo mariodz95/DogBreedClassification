@@ -41,7 +41,7 @@ namespace DogBreed.Repository
             return _mapper.Map<IPredictionResult>(result);
         }
 
-        public async Task<IDogImage> AddImageAsync(string name, byte[] file)
+        public async Task<IDogImage> AddImageAsync(string name, byte[] file, Guid userId)
         {
             DogImageEntity result;
 
@@ -55,6 +55,7 @@ namespace DogBreed.Repository
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     File = file,
+                    UserId = userId,
                 };
                 ctx.Add(result);
                 await ctx.SaveChangesAsync();
@@ -62,12 +63,12 @@ namespace DogBreed.Repository
             return _mapper.Map<IDogImage>(result);
         }
 
-        public async Task<IDogImage> GetAllResultsAsync(int row)
+        public async Task<IDogImage> GetAllResultsAsync(int row, Guid userId)
         {
             DogImageEntity result;
             using (var ctx = new DogBreedContext())
             {
-                result = await ctx.DogImages.OrderByDescending(r => r.DateCreated).Skip(row).Take(1).FirstOrDefaultAsync();
+                result = await ctx.DogImages.OrderByDescending(r => r.DateCreated).Skip(row).Take(1).FirstOrDefaultAsync(i => i.UserId == userId);
                 result.PredictionResults = await ctx.PredictionResults.FirstOrDefaultAsync(p => p.DogImageId == result.Id);
             }
             return _mapper.Map<IDogImage>(result);

@@ -24,11 +24,6 @@ export class DogBreedStore {
   form = new LoginForm(this);
   regForm = new RegistrationForm(this);
 
-  redirectUser = () => {
-    console.log("Check user 222", this.user);
-    this.rootStore.routerStore.goTo("login");
-  };
-
   changePasswordType = () => {
     runInAction(() => {
       this.passwordType === "password"
@@ -93,7 +88,8 @@ export class DogBreedStore {
 
     this.isLoading = true;
     const result = await this.rootStore.adapters.dogBreedAdapter.getResults(
-      rows
+      rows,
+      this.user.data.id
     );
     runInAction(() => {
       if (result) {
@@ -110,10 +106,11 @@ export class DogBreedStore {
     });
   }
 
-  @action async getPrediction(formData) {
+  @action async getPrediction(formData, id) {
     this.isLoading = true;
     const result = await this.rootStore.adapters.dogBreedAdapter.getPrediction(
-      formData
+      formData,
+      id
     );
     runInAction(() => {
       this.prediction = result;

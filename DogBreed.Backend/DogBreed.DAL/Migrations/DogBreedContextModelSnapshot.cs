@@ -46,6 +46,9 @@ namespace DogBreed.DAL.Migrations
                     b.Property<float>("Score")
                         .HasColumnType("real");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PredictionResultsId");
@@ -97,6 +100,9 @@ namespace DogBreed.DAL.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DogImageEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -104,6 +110,8 @@ namespace DogBreed.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DogImageEntityId");
 
                     b.ToTable("Users");
                 });
@@ -113,6 +121,13 @@ namespace DogBreed.DAL.Migrations
                     b.HasOne("DogBreed.DAL.Entities.PredictionResultEntity", "PredictionResults")
                         .WithMany()
                         .HasForeignKey("PredictionResultsId");
+                });
+
+            modelBuilder.Entity("DogBreed.DAL.Entities.UserEntity", b =>
+                {
+                    b.HasOne("DogBreed.DAL.Entities.DogImageEntity", "DogImageEntity")
+                        .WithMany()
+                        .HasForeignKey("DogImageEntityId");
                 });
 #pragma warning restore 612, 618
         }

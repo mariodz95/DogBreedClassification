@@ -1,22 +1,27 @@
 import axios from "axios";
-import { RootStore } from "../shared/stores/RootStore";
 
 export class DogBreedAdapter {
-  async getResults(data) {
+  async getResults(data, userId) {
     let result = [];
     let counter = data;
-
     await axios
       .all([
         axios
-          .get("https://localhost:44368/api/predict/getResults?row=" + counter)
+          .get(
+            "https://localhost:44368/api/predict/getResults?row=" +
+              counter +
+              "&userId=" +
+              userId
+          )
           .then(response1 => {
             result[0] = response1.data;
           }),
         axios
           .get(
             "https://localhost:44368/api/predict/getResults?row=" +
-              (counter = counter + 1)
+              (counter = counter + 1) +
+              "&userId=" +
+              userId
           )
           .then(response2 => {
             result[1] = response2.data;
@@ -24,7 +29,9 @@ export class DogBreedAdapter {
         axios
           .get(
             "https://localhost:44368/api/predict/getResults?row=" +
-              (counter = counter + 1)
+              (counter = counter + 1) +
+              "&userId=" +
+              userId
           )
           .then(response2 => {
             result[2] = response2.data;
@@ -32,7 +39,9 @@ export class DogBreedAdapter {
         axios
           .get(
             "https://localhost:44368/api/predict/getResults?row=" +
-              (counter = counter + 1)
+              (counter = counter + 1) +
+              "&userId=" +
+              userId
           )
           .then(response2 => {
             result[3] = response2.data;
@@ -40,7 +49,9 @@ export class DogBreedAdapter {
         axios
           .get(
             "https://localhost:44368/api/predict/getResults?row=" +
-              (counter = counter + 1)
+              (counter = counter + 1) +
+              "&userId=" +
+              userId
           )
           .then(response2 => {
             result[4] = response2.data;
@@ -51,10 +62,16 @@ export class DogBreedAdapter {
     return await result;
   }
 
-  async getPrediction(formData) {
+  async getPrediction(formData, userId) {
     let result = [];
+    console.log("Userid", formData.values());
     await axios
-      .post("https://localhost:44368/api/predict/classify", formData)
+      .post(
+        "https://localhost:44368/api/predict/classify?userId=" +
+          userId +
+          "&formData",
+        formData
+      )
       .then(res => {
         result = res;
       });
