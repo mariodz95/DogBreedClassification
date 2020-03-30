@@ -1,4 +1,3 @@
-import { history } from "../../shared/utils/History";
 import { RouterState } from "mobx-state-router";
 
 export const routes = [
@@ -33,7 +32,7 @@ export const routes = [
         return Promise.reject(new RouterState("login"));
       } else {
         dogBreedStore.changeLoading(true);
-        dogBreedStore.getResults(true, 0);
+        dogBreedStore.getResults(true, -1);
         dogBreedStore.changeLoading(false);
       }
     }

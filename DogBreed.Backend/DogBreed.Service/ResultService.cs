@@ -26,11 +26,12 @@ namespace DogBreed.Service
 
         public async Task<List<IDogImage>> Classify(IFormFile formData, Guid userId)
         {
-            var filePath = $"G:\\Ruap project\\DogBreed.Backend\\DogBreed\\{formData.FileName}";
-
+            //var filePath = $"G:\\Ruap project\\DogBreed.Backend\\DogBreed\\{formData.FileName}";
+            var path = Environment.CurrentDirectory;
+            var filePath = Path.GetFullPath(path + formData.FileName);
             if (formData.Length > 0)
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     await formData.CopyToAsync(stream);
                 }
@@ -39,7 +40,7 @@ namespace DogBreed.Service
             byte[] file = util.ConvertToBytes(formData);
 
             ModelInput input = new ModelInput();
-            input.ImageSource = formData.FileName;
+            input.ImageSource = filePath;
 
             MLContext mlContext = new MLContext();
 
@@ -73,7 +74,8 @@ namespace DogBreed.Service
 
         public async Task<IDogImage> GetAllResultsAsync(int row, Guid userId)
         {
-            return await _resultRepository.GetAllResultsAsync(row, userId);
+            var test = await _resultRepository.GetAllResultsAsync(row, userId);
+            return test;
         }
     }
 }

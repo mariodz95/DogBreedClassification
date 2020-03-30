@@ -26,7 +26,9 @@ class Login extends React.Component {
             className="password__show"
             onClick={rootStore.dogBreedStore.changePasswordType}
           >
-            {rootStore.dogBreedStore.passwordType === "text" ? "Hide" : "Show"}
+            {rootStore.dogBreedStore.passwordType === "text"
+              ? "Hide Password"
+              : "Show Password"}
           </span>
           <p className="formError">
             {rootStore.dogBreedStore.form.$("password").error}
@@ -49,10 +51,17 @@ class Login extends React.Component {
             Submit
           </button>
           <p className="formError">{rootStore.dogBreedStore.form.error}</p>
+          <br />
+          <a onClick={this.handleClick}>Back to registration</a>
         </form>
       </React.Fragment>
     );
   }
+
+  handleClick = () => {
+    const { rootStore } = this.props;
+    rootStore.routerStore.goTo("registration");
+  };
 }
 
 export default Login;

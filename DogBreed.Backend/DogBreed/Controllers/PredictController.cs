@@ -1,4 +1,6 @@
-﻿using DogBreed.Service.Common;
+﻿using DogBreed.Model;
+using DogBreed.Model.Common;
+using DogBreed.Service.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,7 +28,7 @@ namespace DogBreed.Controllers
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetResults(int row, Guid userId)
-        {         
+        {
             var listOfResults = await _resultService.GetAllResultsAsync(row, userId);
             return Ok(listOfResults);      
         }

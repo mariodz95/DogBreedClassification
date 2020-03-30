@@ -149,6 +149,7 @@ class DogBreed extends React.Component {
     const { rootStore } = this.props;
     rootStore.dogBreedStore.imageRemove();
     rootStore.dogBreedStore.removeResult();
+    rootStore.dogBreedStore.userRemove();
     rootStore.routerStore.goTo("login");
   };
 

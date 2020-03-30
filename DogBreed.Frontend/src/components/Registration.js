@@ -43,8 +43,8 @@ class Registration extends React.Component {
               onClick={rootStore.dogBreedStore.changePasswordType}
             >
               {rootStore.dogBreedStore.passwordType === "text"
-                ? "Hide"
-                : "Show"}
+                ? "Hide password"
+                : "Show password"}
             </span>
             {rootStore.dogBreedStore.registrationFailed ? (
               <p className="formError">User with this email already exist!</p>

@@ -60,6 +60,12 @@ export class DogBreedStore {
     });
   }
 
+  @action userRemove() {
+    runInAction(() => {
+      this.user = null;
+    });
+  }
+
   @action removeResult() {
     runInAction(() => {
       this.prediction.data = null;
@@ -98,7 +104,7 @@ export class DogBreedStore {
         } else {
           this.dogBreedResults.push(...result);
         }
-        if (this.dogBreedResults.length % 5 > 0) {
+        if (this.dogBreedResults.length % 5 !== 0) {
           this.noMoreResults = true;
         }
         this.isLoading = false;
