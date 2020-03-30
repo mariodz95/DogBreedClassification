@@ -3,7 +3,6 @@ using DogBreed.DAL;
 using DogBreed.DAL.Entities;
 using DogBreed.Model.Common;
 using DogBreed.Repository.Common;
-using DogBreed.Repository.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
