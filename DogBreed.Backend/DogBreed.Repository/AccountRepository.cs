@@ -3,10 +3,12 @@ using DogBreed.DAL;
 using DogBreed.DAL.Entities;
 using DogBreed.Model.Common;
 using DogBreed.Repository.Common;
+using DogBreed.Repository.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace DogBreed.Repository
@@ -26,14 +28,23 @@ namespace DogBreed.Repository
             UserEntity result = null;
             if (!exist)
             {
+                byte[] salt;
+                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+                byte[] hashBytes = new byte[36];
+                Array.Copy(salt, 0, hashBytes, 0, 16);
+                Array.Copy(hash, 0, hashBytes, 16, 20);
+                string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
                 using (var ctx = new DogBreedContext())
                 {
                     result = new UserEntity()
                     {
                         Id = Guid.NewGuid(),
                         Email = email,
-                        Password = password,
-                        ConfirmPassword = password,
+                        Password = savedPasswordHash,
+                        ConfirmPassword = savedPasswordHash,
                         DateCreated = DateTime.Now,
                         DateUpdated = DateTime.Now
                     };
@@ -47,16 +58,18 @@ namespace DogBreed.Repository
         public async Task<IUser> LoginAsync(string email, string password)
         {
             bool loginSuccessful = await CheckIfUserExist(email);
-            UserEntity user = null;
+
+            var existUser = await GetUser(email);
+
             if (loginSuccessful)
             {
-                using (var ctx = new DogBreedContext())
+                bool correctPassword = ComparePassword(existUser.Password, password);
+                if (correctPassword)
                 {
-                    user = await ctx.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-                    return _mapper.Map<IUser>(user);
+                    return _mapper.Map<IUser>(existUser);
                 }
             }
-            return _mapper.Map<IUser>(user);
+            return null;
         }
 
         public async Task<bool> CheckIfUserExist(string email)
@@ -69,6 +82,31 @@ namespace DogBreed.Repository
                 userExist = users.Any(u => u.Email == email);
             }
             return userExist;
+        }
+
+        public async Task<UserEntity> GetUser(string email)
+        {
+            UserEntity userExist = null;
+            using (var ctx = new DogBreedContext())
+            {
+                userExist = await ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
+            }
+            return userExist;
+        }
+
+        public bool ComparePassword(string savedPassword, string inputPassword)
+        {
+            bool result;
+            byte[] hashBytes = Convert.FromBase64String(savedPassword);
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+            var pbkdf2 = new Rfc2898DeriveBytes(inputPassword, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i + 16] != hash[i])
+                    return false;
+
+            return true;
         }
     }
 }

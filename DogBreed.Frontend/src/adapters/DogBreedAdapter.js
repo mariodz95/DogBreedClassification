@@ -14,8 +14,6 @@ export class DogBreedAdapter {
               userId
           )
           .then(response2 => {
-            console.log("resp1", response2);
-
             result[0] = response2.data;
           }),
         axios
@@ -26,8 +24,6 @@ export class DogBreedAdapter {
               userId
           )
           .then(response2 => {
-            console.log("resp2", response2);
-
             result[1] = response2.data;
           }),
         axios
@@ -38,7 +34,6 @@ export class DogBreedAdapter {
               userId
           )
           .then(response2 => {
-            console.log("resp3", response2);
             result[2] = response2.data;
           }),
         axios
@@ -49,8 +44,6 @@ export class DogBreedAdapter {
               userId
           )
           .then(response2 => {
-            console.log("resp4", response2);
-
             result[3] = response2.data;
           }),
         axios
@@ -61,8 +54,6 @@ export class DogBreedAdapter {
               userId
           )
           .then(response2 => {
-            console.log("resp5", response2);
-
             result[4] = response2.data;
           })
       ])
@@ -73,7 +64,6 @@ export class DogBreedAdapter {
 
   async getPrediction(formData, userId) {
     let result = [];
-    console.log("Userid", formData.values());
     await axios
       .post(
         "https://localhost:44368/api/predict/classify?userId=" +
