@@ -32,7 +32,7 @@ export const routes = [
         return Promise.reject(new RouterState("login"));
       } else {
         dogBreedStore.changeLoading(true);
-        dogBreedStore.getResults(true, -1);
+        dogBreedStore.getResults(true, 0);
         dogBreedStore.changeLoading(false);
       }
     }

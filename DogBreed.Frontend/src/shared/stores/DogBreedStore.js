@@ -89,6 +89,9 @@ export class DogBreedStore {
       this.data = 0;
       runInAction(() => {
         this.noMoreResults = false;
+        if (this.dogBreedResults.length === 5) {
+          this.noMoreResults = true;
+        }
       });
     }
 

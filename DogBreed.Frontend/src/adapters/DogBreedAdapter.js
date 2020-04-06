@@ -3,7 +3,7 @@ import axios from "axios";
 export class DogBreedAdapter {
   async getResults(data, userId) {
     let result = [];
-    let counter = data;
+    let counter = data - 1;
     await axios
       .all([
         axios

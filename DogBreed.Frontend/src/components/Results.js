@@ -67,7 +67,7 @@ class Results extends React.Component {
           color={"#123abc"}
           loading={rootStore.dogBreedStore.isLoading}
         />
-        {!rootStore.dogBreedStore.noMoreResults ? (
+        {!rootStore.dogBreedStore.noMoreResults && rootStore.dogBreedStore.dogBreedResults.length > 4 ? (
           <button onClick={this.handleLoadMoreClick}>Load More</button>
         ) : null}
       </React.Fragment>

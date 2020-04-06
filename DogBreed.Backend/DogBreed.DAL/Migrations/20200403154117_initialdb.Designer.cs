@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogBreed.DAL.Migrations
 {
     [DbContext(typeof(DogBreedContext))]
-    [Migration("20200327140601_initial-db")]
+    [Migration("20200403154117_initialdb")]
     partial class initialdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,9 @@ namespace DogBreed.DAL.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("DogImageEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -109,6 +112,8 @@ namespace DogBreed.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DogImageEntityId");
 
                     b.ToTable("Users");
                 });
@@ -118,6 +123,13 @@ namespace DogBreed.DAL.Migrations
                     b.HasOne("DogBreed.DAL.Entities.PredictionResultEntity", "PredictionResults")
                         .WithMany()
                         .HasForeignKey("PredictionResultsId");
+                });
+
+            modelBuilder.Entity("DogBreed.DAL.Entities.UserEntity", b =>
+                {
+                    b.HasOne("DogBreed.DAL.Entities.DogImageEntity", "DogImageEntity")
+                        .WithMany()
+                        .HasForeignKey("DogImageEntityId");
                 });
 #pragma warning restore 612, 618
         }
