@@ -49,14 +49,6 @@ namespace DogBreed
 
 
             services.AddControllers();
-
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-                 builder =>
-                 {
-                     builder.AllowAnyOrigin()
-                              .AllowAnyHeader()
-                              .AllowAnyMethod();
-                 }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,13 +63,16 @@ namespace DogBreed
 
             app.UseRouting();
 
-            app.UseAuthentication();
 
-            app.UseAuthorization();
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
 
-            //Make sure you call this before calling app.UseMvc()
-            app.UseCors("ApiCorsPolicy");
+            ////Make sure you call this before calling app.UseMvc()
+            //app.UseCors("ApiCorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

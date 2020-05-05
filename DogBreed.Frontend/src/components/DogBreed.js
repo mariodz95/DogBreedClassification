@@ -1,6 +1,5 @@
 import React from "react";
 import ImageUploader from "react-images-upload";
-import "react-toastify/dist/ReactToastify.css";
 import "./../css/DogBreed.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
@@ -126,7 +125,7 @@ class DogBreed extends React.Component {
         </div>
         <div
           style={{ float: "left", clear: "both" }}
-          ref={el => {
+          ref={(el) => {
             this.messagesEnd = el;
           }}
         ></div>

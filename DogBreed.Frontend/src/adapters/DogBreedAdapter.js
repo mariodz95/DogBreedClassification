@@ -13,7 +13,7 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then(response2 => {
+          .then((response2) => {
             result[0] = response2.data;
           }),
         axios
@@ -23,7 +23,7 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then(response2 => {
+          .then((response2) => {
             result[1] = response2.data;
           }),
         axios
@@ -33,7 +33,7 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then(response2 => {
+          .then((response2) => {
             result[2] = response2.data;
           }),
         axios
@@ -43,7 +43,7 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then(response2 => {
+          .then((response2) => {
             result[3] = response2.data;
           }),
         axios
@@ -53,9 +53,9 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then(response2 => {
+          .then((response2) => {
             result[4] = response2.data;
-          })
+          }),
       ])
       .catch(() => null);
 
@@ -71,7 +71,7 @@ export class DogBreedAdapter {
           "&formData",
         formData
       )
-      .then(res => {
+      .then((res) => {
         result = res;
       });
     return await result;
@@ -86,7 +86,7 @@ export class DogBreedAdapter {
           "&password=" +
           password
       )
-      .then(res => {
+      .then((res) => {
         result = res;
       });
 
@@ -102,7 +102,7 @@ export class DogBreedAdapter {
           "&password=" +
           password
       )
-      .then(res => {
+      .then((res) => {
         result = res;
       });
     return await result;
