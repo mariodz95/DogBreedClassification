@@ -26,7 +26,6 @@ namespace DogBreed.Service
 
         public async Task<List<IDogImage>> Classify(IFormFile formData, Guid userId)
         {
-            //var filePath = $"G:\\Ruap project\\DogBreed.Backend\\DogBreed\\{formData.FileName}";
             var path = Environment.CurrentDirectory;
             var filePath = Path.GetFullPath(path + formData.FileName);
             if (formData.Length > 0)
