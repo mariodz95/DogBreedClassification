@@ -61,6 +61,7 @@ export class DogBreedStore {
   }
 
   @action userRemove() {
+    localStorage.clear();
     runInAction(() => {
       this.user = null;
     });
@@ -72,7 +73,7 @@ export class DogBreedStore {
     });
   }
 
-  @action onDrop = event => {
+  @action onDrop = (event) => {
     runInAction(() => {
       if (event.length > 0) {
         this.uploadedImage = event[0];
@@ -94,11 +95,12 @@ export class DogBreedStore {
         }
       });
     }
+    const user = JSON.parse(localStorage.getItem("user"));
 
     this.isLoading = true;
     const result = await this.rootStore.adapters.dogBreedAdapter.getResults(
       rows,
-      this.user.data.id
+      user.data.id
     );
     runInAction(() => {
       if (result) {
@@ -152,6 +154,8 @@ export class DogBreedStore {
     if (result.data.length === undefined) {
       runInAction(() => {
         this.user = result;
+        // setter
+        localStorage.setItem("user", JSON.stringify(result));
         this.toast = true;
       });
       this.rootStore.routerStore.goTo("dogbreed");
