@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Identity;
 using DogBreed.Repository.Common;
 using DogBreed.Repository;
 using AutoMapper;
+using DogBreedML.Model;
+using Microsoft.Extensions.ML;
 
 namespace DogBreed
 {
@@ -47,6 +49,8 @@ namespace DogBreed
                     .AddEntityFrameworkStores<DogBreedContext>()
                     .AddDefaultTokenProviders();
 
+            services.AddPredictionEnginePool<ModelInput, ModelOutput>()
+                .FromFile(modelName: "DogBreedModel", filePath: "MLModels/MLModel.zip", watchForChanges: true);
 
             services.AddControllers();
         }

@@ -99,26 +99,11 @@ class DogBreed extends React.Component {
           {(rootStore.dogBreedStore.prediction.data !== null) &
           (rootStore.dogBreedStore.prediction.data !== undefined) ? (
             <React.Fragment>
-              <h2>Top 5 Scores</h2>
               {rootStore.dogBreedStore.prediction.data.map((item, index) => (
-                <table className="resultTable" key={index}>
-                  <thead>
-                    <tr>
-                      <th>Dog breed</th>
-                      <th>Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="resultTr">
-                      <td>{item.name}</td>
-                      <td>
-                        {Math.round((item.score * 100 + Number.EPSILON) * 100) /
-                          100}
-                        %
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <p key={item.id}>
+                  Predicted Dog breed is: {item.name} with score:{" "}
+                  {Math.round((item.score * 100 + Number.EPSILON) * 100) / 100}%
+                </p>
               ))}
             </React.Fragment>
           ) : null}
@@ -160,10 +145,8 @@ class DogBreed extends React.Component {
       rootStore.dogBreedStore.uploadedImage,
       rootStore.dogBreedStore.uploadedImage.name
     );
-    rootStore.dogBreedStore.getPrediction(
-      formData,
-      rootStore.dogBreedStore.user.data.id
-    );
+    const user = JSON.parse(localStorage.getItem("user"));
+    rootStore.dogBreedStore.getPrediction(formData, user.data.id);
   };
 }
 

@@ -1,5 +1,4 @@
-﻿using DogBreed.DAL.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
@@ -12,16 +11,19 @@ using DogBreed.Repository.Common;
 using DogBreed.Model.Common;
 using DogBreed.Model;
 using System;
-using System.Reflection;
+using Microsoft.Extensions.ML;
 
 namespace DogBreed.Service
 {
     public class ResultService : IResultService
     {
         private readonly IResultRepository _resultRepository;
-        public ResultService(IResultRepository resultRepository)
+        private readonly PredictionEnginePool<ModelInput, ModelOutput> _predictionEnginePool;
+
+        public ResultService(IResultRepository resultRepository, PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool)
         {
             _resultRepository = resultRepository;
+            _predictionEnginePool = predictionEnginePool;
         }
 
         public async Task<List<IDogImage>> Classify(IFormFile formData, Guid userId)
@@ -41,31 +43,18 @@ namespace DogBreed.Service
             ModelInput input = new ModelInput();
             input.ImageSource = filePath;
 
-            MLContext mlContext = new MLContext();
-
-            string modelPath = "MLModels/MLModel.zip";
-            ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
-            var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
-            var prediction = predEngine.Predict(input);
-            var scores = Util.GetSlotNames(predEngine.OutputSchema, "Score", prediction.Score);
-
+            var prediction = _predictionEnginePool.Predict(modelName: "DogBreedModel", example: input);
+         
             List<IDogImage> dogList = new List<IDogImage>();
 
             IDogImage image = await _resultRepository.AddImageAsync(formData.FileName, file, userId);
-            int counter = 1;
-            foreach (KeyValuePair<string, float> item in scores.Take(5))
-            {
-                IDogImage dog = new DogImage();
-                dog.Name = util.FirstLetterToUpper(item.Key.Remove(0, 10).Replace("_", " ").Replace("-", " "));
-                dog.Score = item.Value;
-                dogList.Add(dog);
-                if (counter == 1)
-                {
-                    await _resultRepository.AddResultAsync(image.Id, dog.Name, dog.Score);
-                }
-                counter++;
-            }
+            IDogImage dog = new DogImage();
 
+            dog.Name = prediction.Prediction.Remove(0, 10).Replace("_", " ").Replace("-", " ");
+            dog.Score = prediction.Score.Max();
+            dogList.Add(dog);     
+            await _resultRepository.AddResultAsync(image.Id, dog.Name, dog.Score);
+            
             System.IO.File.Delete(filePath);
 
             return dogList;
