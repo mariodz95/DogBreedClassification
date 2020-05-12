@@ -50,8 +50,10 @@ export class DogBreedStore {
     });
   };
 
-  @action changeLoading() {
-    this.isLoading = false;
+  @action changeLoading(data) {
+    runInAction(() => {
+      this.isLoading = data;
+    });
   }
 
   @action imageRemove() {
@@ -86,9 +88,9 @@ export class DogBreedStore {
 
   @action async getResults(refresh, rows) {
     if (refresh) {
-      this.dogBreedResults = [];
       this.data = 0;
       runInAction(() => {
+        this.dogBreedResults = [];
         this.noMoreResults = false;
         if (this.dogBreedResults.length === 5) {
           this.noMoreResults = true;
@@ -102,6 +104,7 @@ export class DogBreedStore {
       rows,
       user.data.id
     );
+    console.log("Reuslt dog breed store", result);
     runInAction(() => {
       if (result) {
         if (refresh) {
@@ -115,6 +118,7 @@ export class DogBreedStore {
         this.isLoading = false;
       }
     });
+    console.log("Reuslt", this.dogBreedResults);
   }
 
   @action async getPrediction(formData, id) {

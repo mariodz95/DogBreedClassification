@@ -58,8 +58,8 @@ export class DogBreedAdapter {
           }),
       ])
       .catch(() => null);
-
-    return await result;
+    console.log("Reuslt", result);
+    return result;
   }
 
   async getPrediction(formData, userId) {
