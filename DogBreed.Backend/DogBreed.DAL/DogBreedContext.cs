@@ -10,7 +10,7 @@ namespace DogBreed.DAL
     public class DogBreedContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-                   => options.UseSqlServer("Server=localhost;Database=DogBreed;Trusted_Connection=True;");
+                   => options.UseSqlServer("Server=tcp:dogbreed20200506121351dbserver.database.windows.net,1433;Initial Catalog=DogBreed20200506121351_db;Persist Security Info=False;User ID=Admin123;Password=123Admin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
                 
         public DbSet<PredictionResultEntity> PredictionResults { get; set; }
         public DbSet<DogImageEntity> DogImages { get; set; }

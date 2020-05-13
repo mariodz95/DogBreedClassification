@@ -7,7 +7,7 @@ export class DogBreedStore {
   @observable prediction = [];
   @observable uploadedImage = null;
   @observable isLoading = false;
-  @observable noMoreResults = false;
+  @observable noMoreResults = true;
   @observable showModal = false;
   userObject = null;
   data = 0;
@@ -50,9 +50,9 @@ export class DogBreedStore {
     });
   };
 
-  @action changeLoading(data) {
+  @action changeLoading() {
     runInAction(() => {
-      this.isLoading = data;
+      this.isLoading = this.isLoading === false ? true : false;
     });
   }
 
@@ -91,10 +91,6 @@ export class DogBreedStore {
       this.data = 0;
       runInAction(() => {
         this.dogBreedResults = [];
-        this.noMoreResults = false;
-        if (this.dogBreedResults.length === 5) {
-          this.noMoreResults = true;
-        }
       });
     }
     const user = JSON.parse(localStorage.getItem("user"));
@@ -104,21 +100,24 @@ export class DogBreedStore {
       rows,
       user.data.id
     );
-    console.log("Reuslt dog breed store", result);
     runInAction(() => {
       if (result) {
         if (refresh) {
           this.dogBreedResults = result;
         } else {
-          this.dogBreedResults.push(...result);
+          let dogs = result.filter((e) => e !== "");
+          this.dogBreedResults.push(...dogs);
         }
-        if (this.dogBreedResults.length % 5 !== 0) {
+        const more = this.dogBreedResults.indexOf("") > -1;
+        if (this.dogBreedResults.length % 5 === 0 && more === false) {
+          this.noMoreResults = false;
+        } else {
           this.noMoreResults = true;
         }
+
         this.isLoading = false;
       }
     });
-    console.log("Reuslt", this.dogBreedResults);
   }
 
   @action async getPrediction(formData, id) {

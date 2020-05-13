@@ -13,8 +13,8 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then((response2) => {
-            result[0] = response2.data;
+          .then((response) => {
+            result.push(response.data);
           }),
         axios
           .get(
@@ -23,8 +23,8 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then((response2) => {
-            result[1] = response2.data;
+          .then((response) => {
+            result.push(response.data);
           }),
         axios
           .get(
@@ -33,8 +33,8 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then((response2) => {
-            result[2] = response2.data;
+          .then((response) => {
+            result.push(response.data);
           }),
         axios
           .get(
@@ -43,8 +43,8 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then((response2) => {
-            result[3] = response2.data;
+          .then((response) => {
+            result.push(response.data);
           }),
         axios
           .get(
@@ -53,12 +53,11 @@ export class DogBreedAdapter {
               "&userId=" +
               userId
           )
-          .then((response2) => {
-            result[4] = response2.data;
+          .then((response) => {
+            result.push(response.data);
           }),
       ])
       .catch(() => null);
-    console.log("Reuslt", result);
     return result;
   }
 
@@ -66,7 +65,7 @@ export class DogBreedAdapter {
     let result = [];
     await axios
       .post(
-        "https://localhost:44368/api/predict/classify?userId=" +
+        "https://dogbreed20200506121351.azurewebsites.net/api/predict/classify?userId=" +
           userId +
           "&formData",
         formData
@@ -74,14 +73,14 @@ export class DogBreedAdapter {
       .then((res) => {
         result = res;
       });
-    return await result;
+    return result;
   }
 
   async registration(email, password) {
     let result;
     await axios
       .post(
-        "https://localhost:44368/api/account/registration?email=" +
+        "https://dogbreed20200506121351.azurewebsites.net/api/account/registration?email=" +
           email +
           "&password=" +
           password
@@ -90,14 +89,14 @@ export class DogBreedAdapter {
         result = res;
       });
 
-    return await result;
+    return result;
   }
 
   async login(email, password) {
     let result;
     await axios
       .post(
-        "https://localhost:44368/api/account/login?email=" +
+        "https://dogbreed20200506121351.azurewebsites.net/api/account/login?email=" +
           email +
           "&password=" +
           password
@@ -105,6 +104,6 @@ export class DogBreedAdapter {
       .then((res) => {
         result = res;
       });
-    return await result;
+    return result;
   }
 }

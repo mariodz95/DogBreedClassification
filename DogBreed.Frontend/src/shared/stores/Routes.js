@@ -33,9 +33,8 @@ export const routes = [
       if (user === null) {
         return Promise.reject(new RouterState("login"));
       } else {
-        dogBreedStore.changeLoading(true);
+        dogBreedStore.changeLoading();
         dogBreedStore.getResults(true, 0);
-        dogBreedStore.changeLoading(false);
       }
     },
   },

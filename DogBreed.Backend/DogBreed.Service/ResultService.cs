@@ -12,6 +12,7 @@ using DogBreed.Model.Common;
 using DogBreed.Model;
 using System;
 using Microsoft.Extensions.ML;
+using DogBreed.DAL.Entities;
 
 namespace DogBreed.Service
 {
@@ -60,10 +61,9 @@ namespace DogBreed.Service
             return dogList;
         }
 
-        public async Task<IDogImage> GetAllResultsAsync(int row, Guid userId)
+        public async Task<DogImageEntity> GetAllResultsAsync(int row, Guid userId)
         {
-            var test = await _resultRepository.GetAllResultsAsync(row, userId);
-            return test;
+            return await _resultRepository.GetAllResultsAsync(row, userId);
         }
     }
 }

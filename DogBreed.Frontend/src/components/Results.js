@@ -34,40 +34,50 @@ class Results extends React.Component {
             </tr>
           </thead>
           {rootStore.dogBreedStore.dogBreedResults !== undefined
-            ? rootStore.dogBreedStore.dogBreedResults.map((item, index) => (
-                <tbody key={index}>
-                  <tr className="resultTr">
-                    <td>
-                      <img
-                        className="resultImage"
-                        alt="dog"
-                        src={`data:image/jpeg;base64,${
-                          item !== undefined ? item.file : ""
-                        }`}
-                      ></img>
-                    </td>
-                    <td>{item.predictionResults.name}</td>
-                    <td>
-                      {Math.round(
-                        (item.predictionResults.score * 100 + Number.EPSILON) *
-                          100
-                      ) / 100}
-                      %
-                    </td>
-                    <td>{item.dateCreated.split("T")[0]}</td>
-                    <td>{item.dateCreated.split("T")[1].split(".")[0]}</td>
-                  </tr>
-                </tbody>
-              ))
-            : null}
+            ? rootStore.dogBreedStore.dogBreedResults.map((item, index) =>
+                item !== undefined && item !== "" ? (
+                  <tbody key={index}>
+                    <tr className="resultTr">
+                      <td>
+                        <img
+                          className="resultImage"
+                          alt="dog"
+                          src={`data:image/jpeg;base64,${
+                            item !== undefined ? item.file : ""
+                          }`}
+                        ></img>
+                      </td>
+                      <td>
+                        {item !== undefined
+                          ? item.predictionResults.name
+                          : null}
+                      </td>
+                      <td>
+                        {Math.round(
+                          (item.predictionResults.score * 100 +
+                            Number.EPSILON) *
+                            100
+                        ) / 100}
+                        %
+                      </td>
+                      <td>{item.dateCreated.split("T")[0]}</td>
+                      <td>{item.dateCreated.split("T")[1].split(".")[0]}</td>
+                    </tr>
+                  </tbody>
+                ) : null
+              )
+            : "Refresh page, there is problem with database"}
         </table>
-        <ClipLoader
-          css={override}
-          size={40}
-          color={"#123abc"}
-          loading={rootStore.dogBreedStore.isLoading}
-        />
-        {!rootStore.dogBreedStore.noMoreResults && rootStore.dogBreedStore.dogBreedResults.length > 4 ? (
+        <div className="sweet-loading">
+          <ClipLoader
+            css={override}
+            size={40}
+            color={"#123abc"}
+            loading={rootStore.dogBreedStore.isLoading}
+          />
+        </div>
+        {!rootStore.dogBreedStore.noMoreResults &&
+        rootStore.dogBreedStore.dogBreedResults.length > 4 ? (
           <button onClick={this.handleLoadMoreClick}>Load More</button>
         ) : null}
       </React.Fragment>

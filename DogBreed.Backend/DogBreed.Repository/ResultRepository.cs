@@ -63,15 +63,20 @@ namespace DogBreed.Repository
             return _mapper.Map<IDogImage>(result);
         }
 
-        public async Task<IDogImage> GetAllResultsAsync(int row, Guid userId)
+        public async Task<DogImageEntity> GetAllResultsAsync(int row, Guid userId)
         {
-            DogImageEntity result;
+            
+            DogImageEntity result = null;
             using (var ctx = new DogBreedContext())
             {
                 result = await ctx.DogImages.OrderByDescending(r => r.DateCreated).Skip(row).Take(1).FirstOrDefaultAsync(i => i.UserId == userId);
+                if(result == null)
+                {
+                    return result;
+                }
                 result.PredictionResults = await ctx.PredictionResults.FirstOrDefaultAsync(p => p.DogImageId == result.Id);
             }
-            return _mapper.Map<IDogImage>(result);
+            return result;
         }
     }
 }
