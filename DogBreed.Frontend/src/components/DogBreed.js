@@ -79,8 +79,13 @@ class DogBreed extends React.Component {
             imgExtension={[".jpg", ".png"]}
             maxFileSize={5242880}
             withPreview={true}
-            singleImage={true}
-            fileContainerStyle={{ backgroundColor: "#282c34" }}
+            singleImage={false}
+            fileSizeError="File size is to big"
+            fileTypeError="Error: Only .png and .jpg formats are supported"
+            fileContainerStyle={{
+              backgroundColor: "#282c34",
+              width: "1200px",
+            }}
           />
           <div className="sweet-loading">
             <ClipLoader
@@ -90,24 +95,30 @@ class DogBreed extends React.Component {
               loading={rootStore.dogBreedStore.isLoading}
             />
           </div>
+
           <button
             className="BtnUpload"
             variant="success"
             onClick={this.uploadHandler}
-            disabled={rootStore.dogBreedStore.uploadedImage === null}
+            disabled={rootStore.dogBreedStore.displayButton}
             size="sm"
           >
             Classify dog breed
           </button>
-          {(rootStore.dogBreedStore.prediction.data !== null) &
-          (rootStore.dogBreedStore.prediction.data !== undefined) ? (
+          {(rootStore.dogBreedStore.prediction !== null) &
+          (rootStore.dogBreedStore.prediction !== undefined) ? (
             <React.Fragment>
-              {rootStore.dogBreedStore.prediction.data.map((item, index) => (
-                <p key={item.id}>
-                  Predicted Dog breed is: {item.name} with score:{" "}
-                  {Math.round((item.score * 100 + Number.EPSILON) * 100) / 100}%
-                </p>
-              ))}
+              <div className="result">
+                {rootStore.dogBreedStore.prediction.map((item, index) => (
+                  <p key={item.data[0].id}>
+                    Classified Dog breed is: {item.data[0].name} with score:{" "}
+                    {Math.round(
+                      (item.data[0].score * 100 + Number.EPSILON) * 100
+                    ) / 100}
+                    %
+                  </p>
+                ))}
+              </div>
             </React.Fragment>
           ) : null}
         </div>
@@ -142,14 +153,7 @@ class DogBreed extends React.Component {
 
   uploadHandler = () => {
     const { rootStore } = this.props;
-    const formData = new FormData();
-    formData.append(
-      "formData",
-      rootStore.dogBreedStore.uploadedImage,
-      rootStore.dogBreedStore.uploadedImage.name
-    );
-    const user = JSON.parse(localStorage.getItem("user"));
-    rootStore.dogBreedStore.getPrediction(formData, user.data.id);
+    rootStore.dogBreedStore.getPrediction();
   };
 }
 

@@ -5,7 +5,8 @@ import RegistrationForm from "../../components/RegistrationForm";
 export class DogBreedStore {
   @observable dogBreedResults = [];
   @observable prediction = [];
-  @observable uploadedImage = null;
+  @observable uploadedImage = [];
+  @observable displayButton = true;
   @observable isLoading = false;
   @observable noMoreResults = true;
   @observable showModal = false;
@@ -58,7 +59,7 @@ export class DogBreedStore {
 
   @action imageRemove() {
     runInAction(() => {
-      this.uploadedImage = null;
+      this.uploadedImage = [];
     });
   }
 
@@ -71,17 +72,21 @@ export class DogBreedStore {
 
   @action removeResult() {
     runInAction(() => {
-      this.prediction.data = null;
+      this.prediction = null;
     });
   }
 
   @action onDrop = (event) => {
     runInAction(() => {
       if (event.length > 0) {
-        this.uploadedImage = event[0];
+        for (var i = 0; i < event.length; i++) {
+          this.uploadedImage.push(event[i]);
+          this.displayButton = false;
+        }
       } else {
-        this.uploadedImage = null;
-        this.prediction.data = null;
+        this.uploadedImage = [];
+        this.prediction = null;
+        this.displayButton = true;
       }
     });
   };
@@ -120,12 +125,25 @@ export class DogBreedStore {
     });
   }
 
-  @action async getPrediction(formData, id) {
+  @action async getPrediction() {
     this.isLoading = true;
-    const result = await this.rootStore.adapters.dogBreedAdapter.getPrediction(
-      formData,
-      id
-    );
+    const user = JSON.parse(localStorage.getItem("user"));
+    const result = [];
+    for (let i = 0; i < this.uploadedImage.length; i++) {
+      const formData = new FormData();
+      formData.append(
+        "formData",
+        this.uploadedImage[i],
+        this.uploadedImage[i].name
+      );
+      result.push(
+        await this.rootStore.adapters.dogBreedAdapter.getPrediction(
+          formData,
+          user.data.id
+        )
+      );
+    }
+
     runInAction(() => {
       this.prediction = result;
       this.isLoading = false;

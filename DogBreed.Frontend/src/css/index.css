@@ -58,3 +58,7 @@ p {
 h1 {
   color: white;
 }
+
+.result {
+  margin-bottom: 100px;
+}

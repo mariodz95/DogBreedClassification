@@ -62,7 +62,7 @@ export class DogBreedAdapter {
   }
 
   async getPrediction(formData, userId) {
-    let result = [];
+    let result;
     await axios
       .post(
         "https://localhost:44368/api/predict/classify?userId=" +
