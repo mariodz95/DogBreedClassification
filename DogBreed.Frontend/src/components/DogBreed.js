@@ -65,9 +65,12 @@ class DogBreed extends React.Component {
                 &times;
               </a>
               <img src={require("./../images/ferit.png")} alt="ferit" />
-              This web app is made for RUAP and can predict 120 dog breeds.
+              This web app can classify 120 dog breeds. You need just to upload
+              image and click on button Classify dog breed
             </div>
           </Popup>
+          <h1>Dog Breed Classification</h1>
+          <p>Info: Upload image for classification</p>
           <ImageUploader
             className="ImgUpload"
             withIcon={true}

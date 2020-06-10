@@ -65,7 +65,7 @@ export class DogBreedAdapter {
     let result = [];
     await axios
       .post(
-        "https://dogbreed20200506121351.azurewebsites.net/api/predict/classify?userId=" +
+        "https://localhost:44368/api/predict/classify?userId=" +
           userId +
           "&formData",
         formData
@@ -80,7 +80,7 @@ export class DogBreedAdapter {
     let result;
     await axios
       .post(
-        "https://dogbreed20200506121351.azurewebsites.net/api/account/registration?email=" +
+        "https://localhost:44368/api/account/registration?email=" +
           email +
           "&password=" +
           password
@@ -96,7 +96,7 @@ export class DogBreedAdapter {
     let result;
     await axios
       .post(
-        "https://dogbreed20200506121351.azurewebsites.net/api/account/login?email=" +
+        "https://localhost:44368/api/account/login?email=" +
           email +
           "&password=" +
           password

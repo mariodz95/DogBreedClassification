@@ -4,15 +4,6 @@ export const routes = [
   {
     name: "dogbreed",
     pattern: "/dogbreed",
-    beforeEnter: (fromState, toState, routerStore) => {
-      const {
-        rootStore: { dogBreedStore },
-      } = routerStore;
-      const user = localStorage.getItem("user");
-      if (user === null) {
-        return Promise.reject(new RouterState("login"));
-      }
-    },
   },
   {
     name: "login",
@@ -30,12 +21,8 @@ export const routes = [
         rootStore: { dogBreedStore },
       } = routerStore;
       const user = localStorage.getItem("user");
-      if (user === null) {
-        return Promise.reject(new RouterState("login"));
-      } else {
-        dogBreedStore.changeLoading();
-        dogBreedStore.getResults(true, 0);
-      }
+      dogBreedStore.changeLoading();
+      dogBreedStore.getResults(true, 0);
     },
   },
 ];
