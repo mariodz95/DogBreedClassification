@@ -57,6 +57,12 @@ export class DogBreedStore {
     });
   }
 
+  @action changeButton() {
+    runInAction(() => {
+      this.displayButton = true;
+    });
+  }
+
   @action imageRemove() {
     runInAction(() => {
       this.uploadedImage = [];

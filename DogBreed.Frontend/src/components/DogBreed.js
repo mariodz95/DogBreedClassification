@@ -84,7 +84,7 @@ class DogBreed extends React.Component {
             fileTypeError="Error: Only .png and .jpg formats are supported"
             fileContainerStyle={{
               backgroundColor: "#282c34",
-              width: "1200px",
+              width: "1000px",
             }}
           />
           <div className="sweet-loading">

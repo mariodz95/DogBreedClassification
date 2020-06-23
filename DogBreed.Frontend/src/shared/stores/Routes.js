@@ -22,6 +22,7 @@ export const routes = [
       } = routerStore;
       const user = localStorage.getItem("user");
       dogBreedStore.changeLoading();
+      dogBreedStore.changeButton();
       dogBreedStore.getResults(true, 0);
     },
   },
